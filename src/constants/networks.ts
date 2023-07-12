@@ -1,4 +1,4 @@
-import { ChainId } from '@uniswap/sdk-core'
+import { ChainId } from '@thinkincoin-libs/sdk-core'
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
 if (typeof INFURA_KEY === 'undefined') {
@@ -7,6 +7,11 @@ if (typeof INFURA_KEY === 'undefined') {
 const QUICKNODE_RPC_URL = process.env.REACT_APP_BNB_RPC_URL
 if (typeof QUICKNODE_RPC_URL === 'undefined') {
   throw new Error(`REACT_APP_BNB_RPC_URL must be a defined environment variable`)
+}
+const HARMONY_RPC_URL = 'https://api.harmony.one'
+
+/*if (typeof HARMONY_RPC_URL === 'undefined') {
+  throw new Error(`HARMONY_RPC_URL must be a defined environment variable`)
 }
 
 /**
@@ -109,6 +114,11 @@ export const FALLBACK_URLS = {
     'https://endpoints.omniatech.io/v1/avax/mainnet/public',
     'https://ava-mainnet.public.blastapi.io/ext/bc/C/rpc',
   ],
+  [ChainId.HARMONY]: [
+    // "Safe" URLs
+    'https://api.harmony.one',
+    'https://api.s0.t.hmny.io'
+  ],
 }
 
 /**
@@ -141,4 +151,6 @@ export const RPC_URLS = {
   [ChainId.CELO_ALFAJORES]: FALLBACK_URLS[ChainId.CELO_ALFAJORES],
   [ChainId.BNB]: [QUICKNODE_RPC_URL, ...FALLBACK_URLS[ChainId.BNB]],
   [ChainId.AVALANCHE]: [`https://avalanche-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.AVALANCHE]],
+  [ChainId.HARMONY]: [HARMONY_RPC_URL, ...FALLBACK_URLS[ChainId.HARMONY]],
+
 }
