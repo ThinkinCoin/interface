@@ -95,6 +95,7 @@ export const colors = {
   networkPolygon: '#A457FF',
   networkArbitrum: '#28A0F0',
   networkBsc: '#F0B90B',
+  networkHarmony: '#39d7d0',
   networkPolygonSoft: 'rgba(164, 87, 255, 0.16)',
   networkEthereumSoft: 'rgba(98, 126, 234, 0.16)',
 }
@@ -113,6 +114,7 @@ const commonTheme = {
   chain_137: colors.networkPolygon,
   chain_42: colors.networkArbitrum,
   chain_56: colors.networkBsc,
+  chain_1666600000: colors.green400,
   chain_420: colors.networkOptimism,
   chain_42161: colors.networkArbitrum,
   chain_421613: colors.networkArbitrum,
@@ -123,13 +125,14 @@ const commonTheme = {
   chain_43114_background: colors.red900,
   chain_42161_background: colors.blue900,
   chain_56_background: colors.networkBsc,
-  promotional: colors.magenta300,
+  chain_1666600000_background: colors.green700,
+  promotional: colors.greenVibrant,
 
-  brandedGradient: 'linear-gradient(139.57deg, #FF79C9 4.35%, #FFB8E2 96.44%);',
-  promotionalGradient: 'radial-gradient(101.8% 4091.31% at 0% 0%, #4673FA 0%, #9646FA 100%);',
+  brandedGradient: 'linear-gradient(139.57deg, #a8ff79 4.35%, #b8ffbc 96.44%);',
+  promotionalGradient: 'radial-gradient(101.8% 4091.31% at 0% 0%, #4673FA 0%, #1b8efa 100%);',
 
-  hoverState: opacify(24, colors.blue200),
-  hoverDefault: opacify(8, colors.gray300),
+  hoverState: opacify(24, colors.green200),
+  hoverDefault: opacify(8, colors.green300),
 }
 
 export const darkTheme = {
@@ -137,48 +140,48 @@ export const darkTheme = {
 
   userThemeColor: colors.magentaVibrant,
 
-  background: colors.gray800,
-  backgroundBackdrop: colors.gray950,
-  backgroundSurface: colors.gray900,
-  backgroundModule: colors.gray800,
-  backgroundInteractive: colors.gray700,
+  background: colors.green800,
+  backgroundBackdrop: colors.green900,
+  backgroundSurface: colors.green900,
+  backgroundModule: colors.green800,
+  backgroundInteractive: colors.green700,
   backgroundFloating: opacify(12, colors.black),
-  backgroundOutline: opacify(24, colors.gray300),
-  backgroundScrim: opacify(72, colors.gray900),
-  backgroundScrolledSurface: opacify(72, colors.gray900),
+  backgroundOutline: opacify(24, colors.green300),
+  backgroundScrim: opacify(72, colors.green900),
+  backgroundScrolledSurface: opacify(72, colors.green900),
 
   textPrimary: colors.white,
-  textSecondary: colors.gray300,
-  textTertiary: colors.gray500,
+  textSecondary: colors.green100,
+  textTertiary: colors.green300,
 
-  accentAction: colors.blue400,
-  accentActive: colors.blue400,
+  accentAction: colors.green400,
+  accentActive: colors.green400,
   accentSuccess: colors.green200,
   accentWarning: colors.gold200,
   accentFailure: colors.red300,
   accentCritical: colors.red300,
 
-  accentActionSoft: opacify(24, colors.blue400),
-  accentActiveSoft: opacify(24, colors.blue400),
+  accentActionSoft: opacify(24, colors.green400),
+  accentActiveSoft: opacify(24, colors.green400),
   accentSuccessSoft: opacify(24, colors.green400),
   accentWarningSoft: opacify(24, colors.gold200),
   accentFailureSoft: opacify(12, colors.red300),
 
-  accentTextDarkPrimary: opacify(80, colors.gray900),
-  accentTextDarkSecondary: opacify(60, colors.gray900),
-  accentTextDarkTertiary: opacify(24, colors.gray900),
+  accentTextDarkPrimary: opacify(80, colors.green900),
+  accentTextDarkSecondary: opacify(60, colors.green900),
+  accentTextDarkTertiary: opacify(24, colors.green900),
 
-  accentTextLightPrimary: colors.gray50,
-  accentTextLightSecondary: opacify(72, colors.gray50),
-  accentTextLightTertiary: opacify(12, colors.gray50),
+  accentTextLightPrimary: colors.green50,
+  accentTextLightSecondary: opacify(72, colors.green50),
+  accentTextLightTertiary: opacify(12, colors.green50),
 
   deepShadow: '12px 16px 24px rgba(0, 0, 0, 0.24), 12px 8px 12px rgba(0, 0, 0, 0.24), 4px 4px 8px rgba(0, 0, 0, 0.32);',
   shallowShadow: '4px 4px 10px rgba(0, 0, 0, 0.24), 2px 2px 4px rgba(0, 0, 0, 0.12), 1px 2px 2px rgba(0, 0, 0, 0.12);',
 
-  networkDefaultShadow: `0px 40px 120px ${opacify(16, colors.blue400)}`,
+  networkDefaultShadow: `0px 40px 120px ${opacify(16, colors.green400)}`,
 
-  stateOverlayHover: opacify(8, colors.gray300),
-  stateOverlayPressed: opacify(24, colors.gray200),
+  stateOverlayHover: opacify(8, colors.green300),
+  stateOverlayPressed: opacify(24, colors.green200),
 
   searchBackground: `rgba(255,255,255,0.07)`,
   searchOutline: `rgba(255,255,255,0.07)`,
@@ -189,7 +192,7 @@ export const lightTheme: Theme = {
 
   userThemeColor: colors.magentaVibrant,
 
-  background: '#faf9fa', //INTENTIONALLY OFF THEME TO GIVE WHITE BG A SOFTER VISUAL
+  background: '#dbdbdb', //INTENTIONALLY OFF THEME TO GIVE WHITE BG A SOFTER VISUAL
   backgroundBackdrop: colors.white,
   backgroundSurface: colors.white,
   backgroundModule: colors.gray50,
@@ -204,14 +207,14 @@ export const lightTheme: Theme = {
   textTertiary: colors.gray300,
 
   accentAction: colors.pink400,
-  accentActive: colors.blue400,
+  accentActive: colors.green400,
   accentSuccess: colors.green300,
   accentWarning: colors.gold400,
   accentFailure: colors.red400,
   accentCritical: colors.red400,
 
   accentActionSoft: opacify(12, colors.pink400),
-  accentActiveSoft: opacify(24, colors.blue400),
+  accentActiveSoft: opacify(24, colors.green400),
   accentSuccessSoft: opacify(24, colors.green300),
   accentWarningSoft: opacify(24, colors.gold400),
   accentFailureSoft: opacify(12, colors.red400),

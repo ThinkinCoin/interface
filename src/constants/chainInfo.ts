@@ -88,6 +88,16 @@ const CHAIN_INFO: ChainInfoMap = {
     nativeCurrency: { name: 'Görli Ether', symbol: 'görETH', decimals: 18 },
     color: darkTheme.chain_5,
   },
+  [ChainId.BASE_GOERLI]: {
+    networkType: NetworkType.L1,
+    docs: 'https://docs.uniswap.org/',
+    explorer: 'https://goerli.etherscan.io/',
+    infoLink: 'https://info.uniswap.org/#/',
+    label: 'Base Görli',
+    logoUrl: ethereumLogoUrl,
+    nativeCurrency: { name: 'Görli Ether', symbol: 'görETH', decimals: 18 },
+    color: darkTheme.chain_5,
+  },
   [ChainId.SEPOLIA]: {
     networkType: NetworkType.L1,
     docs: 'https://docs.uniswap.org/',
@@ -259,8 +269,8 @@ const CHAIN_INFO: ChainInfoMap = {
     squareLogoUrl: harmonySquareLogoUrl,
     nativeCurrency: { name: 'Harmony', symbol: 'ONE', decimals: 18 },
     defaultListUrl: HARMONY_TOKEN_LIST,
-    color: darkTheme.chain_56,
-    backgroundColor: darkTheme.chain_56_background,
+    color: darkTheme.chain_1666600000,
+    backgroundColor: darkTheme.chain_1666600000_background,
   },
 } as const
 
