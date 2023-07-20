@@ -6351,9 +6351,9 @@
   resolved "https://registry.yarnpkg.com/@uniswap/conedison/-/conedison-1.8.0.tgz#60fcfa1475780350a719510ccee1f6a49f8c5cf8"
   integrity sha512-EeC37bbrd4sJnqW3TxNhExdWUBvzyJDhbTXcbDzFdBh/bg5sOCu1NbYJEnrjwBHEfewc9nF2OjEzejJFyJUx9A==
 
-"@thinkincoin-libs/default-token-list@^11.2.0":
-  version "11.2.0"
-  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/default-token-list/-/default-token-list-11.2.0.tgz#f7babd37b8f2f1d5c724bd4689be93c4aedd9205"
+"@thinkincoin-libs/default-token-list@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/default-token-list/-/default-token-list-1.0.0.tgz#f7babd37b8f2f1d5c724bd4689be93c4aedd9205"
   integrity sha512-royMoeeONKRheGEQD7eeLKdwWvdl6l4qzpFr5Jh9Mp09xdQoBaF7zqZuM/5URIXV0cvvWGWnbIqVKbtFikkMRA==
 
 "@thinkincoin-libs/default-token-list@^11.3.0":
@@ -6472,7 +6472,7 @@
   resolved "https://registry.yarnpkg.com/@uniswap/smart-order-router/-/smart-order-router-3.13.5.tgz#a6db511b46db5716aa9002060992f2326682d7a5"
   integrity sha512-U+XG9Wgzzpii8LLFLUu86pUjxp+JsL0sCkuCYr+arV9KbNWUhhNQi1gTia7VYCs9+EUaVwulRoC9eWytCxobcw==
   dependencies:
-    "@thinkincoin-libs/default-token-list" "^11.2.0"
+    "@thinkincoin-libs/default-token-list" "^1.0.0"
     "@uniswap/permit2-sdk" "^1.2.0"
     "@uniswap/router-sdk" "^1.3.0"
     "@uniswap/swap-router-contracts" "^1.3.0"
