@@ -5243,7 +5243,7 @@
 
 "@thinkincoin-libs/default-token-list@^1.0.3":
   version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/default-token-list/-/harmony-token-list-1.0.3.tgz#952d81aba391fb899eb6a8da2372a3cd702fb2ed"
+  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/default-token-list/-/default-token-list-1.0.0.tgz#952d81aba391fb899eb6a8da2372a3cd702fb2ed"
   integrity sha512-U/Trp1vPHRSisAFsPrXw9Mm/hjEjCUmYh0VesdonmpRiXRJJbwiat63QhmY/GPoteeW3RMSdxHfzrsO1FFgTxA==
 
 "@thinkincoin-libs/permit2-sdk@^1.2.0":
