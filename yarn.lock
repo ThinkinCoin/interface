@@ -6347,9 +6347,6 @@
   integrity sha512-EeC37bbrd4sJnqW3TxNhExdWUBvzyJDhbTXcbDzFdBh/bg5sOCu1NbYJEnrjwBHEfewc9nF2OjEzejJFyJUx9A==
 
 
-"@thinkincoin-libs/default-token-list@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/default-token-list/-/default-token-list-1.0.0.tgz#d0f8073e4a270ca4bd3c2604ea89c22e0f661efa"
 
 "@uniswap/eslint-config@^1.2.0":
   version "1.2.0"
