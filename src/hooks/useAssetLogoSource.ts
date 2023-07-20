@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 import TokenLogoLookupTable from 'constants/TokenLogoLookupTable'
 import { isCelo, isHarmony, nativeOnChain } from 'constants/tokens'
+=======
+import tokenLogoLookup from 'constants/tokenLogoLookup'
+import { isCelo, nativeOnChain } from 'constants/tokens'
+import { checkWarning, WARNING_LEVEL } from 'constants/tokenSafety'
+>>>>>>> origin/defaults
 import { chainIdToNetworkName, getNativeLogoURI } from 'lib/hooks/useCurrencyLogoURIs'
 import uriToHttp from 'lib/utils/uriToHttp'
 import { useCallback, useEffect, useState } from 'react'
 import { isAddress } from 'utils'
 
 import celoLogo from '../assets/svg/celo_logo.svg'
+<<<<<<< HEAD
 import harmonyLogo from "../assets/images/harmonyLogo.png"
 import { checkWarning } from '../constants/tokenSafety'
+=======
+>>>>>>> origin/defaults
 
 const BAD_SRCS: { [tokenAddress: string]: true } = {}
 
@@ -39,7 +48,12 @@ function prioritizeLogoSources(uris: string[]) {
   return coingeckoUrl ? [...preferredUris, coingeckoUrl] : preferredUris
 }
 
-function getInitialUrl(address?: string | null, chainId?: number | null, isNative?: boolean) {
+function getInitialUrl(
+  address?: string | null,
+  chainId?: number | null,
+  isNative?: boolean,
+  backupImg?: string | null
+) {
   if (chainId && isNative) return getNativeLogoURI(chainId)
 
   const networkName = chainId ? chainIdToNetworkName(chainId) : 'ethereum'
@@ -55,7 +69,7 @@ function getInitialUrl(address?: string | null, chainId?: number | null, isNativ
   if (checksummedAddress) {
     return `https://raw.githubusercontent.com/Uniswap/assets/master/blockchains/${networkName}/assets/${checksummedAddress}/logo.png`
   } else {
-    return undefined
+    return backupImg ?? undefined
   }
 }
 
@@ -65,17 +79,17 @@ export default function useAssetLogoSource(
   isNative?: boolean,
   backupImg?: string | null
 ): [string | undefined, () => void] {
-  const hasWarning = Boolean(address && checkWarning(address))
+  const hideLogo = Boolean(address && checkWarning(address, chainId)?.level === WARNING_LEVEL.BLOCKED)
   const [current, setCurrent] = useState<string | undefined>(
-    hasWarning ? undefined : getInitialUrl(address, chainId, isNative)
+    hideLogo ? undefined : getInitialUrl(address, chainId, isNative, backupImg)
   )
   const [fallbackSrcs, setFallbackSrcs] = useState<string[] | undefined>(undefined)
 
   useEffect(() => {
-    if (hasWarning) return
+    if (hideLogo) return
     setCurrent(getInitialUrl(address, chainId, isNative))
     setFallbackSrcs(undefined)
-  }, [hasWarning, address, chainId, isNative])
+  }, [address, chainId, hideLogo, isNative])
 
   const nextSrc = useCallback(() => {
     if (current) {
@@ -83,7 +97,7 @@ export default function useAssetLogoSource(
     }
     // Parses and stores logo sources from tokenlists if assets repo url fails
     if (!fallbackSrcs) {
-      const uris = TokenLogoLookupTable.getIcons(address, chainId) ?? []
+      const uris = tokenLogoLookup.getIcons(address, chainId) ?? []
       if (backupImg) uris.push(backupImg)
       const tokenListIcons = prioritizeLogoSources(parseLogoSources(uris))
 

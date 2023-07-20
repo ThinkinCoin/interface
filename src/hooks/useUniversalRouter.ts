@@ -1,15 +1,21 @@
-import { TransactionResponse } from '@ethersproject/abstract-provider'
 import { BigNumber } from '@ethersproject/bignumber'
 import { t } from '@lingui/macro'
 import { sendAnalyticsEvent, useTrace } from '@uniswap/analytics'
 import { SwapEventName } from '@uniswap/analytics-events'
+<<<<<<< HEAD
 import { Trade } from '@thinkincoin/router-sdk'
 import { Currency, Percent, TradeType } from '@thinkincoin/sdk-core'
 import { SwapRouter, UNIVERSAL_ROUTER_ADDRESS } from '@thinkincoin/universal-router-sdk'
 import { FeeOptions, toHex } from '@thinkincoin-libs/uniswap-v3-sdk'
+=======
+import { Percent } from '@uniswap/sdk-core'
+import { SwapRouter, UNIVERSAL_ROUTER_ADDRESS } from '@uniswap/universal-router-sdk'
+import { FeeOptions, toHex } from '@uniswap/v3-sdk'
+>>>>>>> origin/defaults
 import { useWeb3React } from '@web3-react/core'
 import { formatSwapSignedAnalyticsEventProperties } from 'lib/utils/analytics'
 import { useCallback } from 'react'
+import { ClassicTrade, TradeFillType } from 'state/routing/types'
 import { trace } from 'tracing/trace'
 import { calculateGasMargin } from 'utils/calculateGasMargin'
 import { UserRejectedRequestError } from 'utils/errors'
@@ -45,14 +51,14 @@ interface SwapOptions {
 }
 
 export function useUniversalRouterSwapCallback(
-  trade: Trade<Currency, Currency, TradeType> | undefined,
+  trade: ClassicTrade | undefined,
   fiatValues: { amountIn?: number; amountOut?: number },
   options: SwapOptions
 ) {
   const { account, chainId, provider } = useWeb3React()
   const analyticsContext = useTrace()
 
-  return useCallback(async (): Promise<TransactionResponse> => {
+  return useCallback(async () => {
     return trace('swap.send', async ({ setTraceData, setTraceStatus, setTraceError }) => {
       try {
         if (!account) throw new Error('missing account')
@@ -109,7 +115,10 @@ export function useUniversalRouterSwapCallback(
             }
             return response
           })
-        return response
+        return {
+          type: TradeFillType.Classic as const,
+          response,
+        }
       } catch (swapError: unknown) {
         if (swapError instanceof ModifiedSwapError) throw swapError
 
