@@ -1,9 +1,15 @@
 import { Protocol } from '@thinkincoin/router-sdk'
 import { Currency, CurrencyAmount, TradeType } from '@thinkincoin/sdk-core'
 import { routeAmountsToString, SwapRoute } from '@uniswap/smart-order-router'
+<<<<<<< HEAD
 import { Pool } from '@thinkincoin-libs/uniswap-v3-sdk'
 import { QuoteResult, QuoteState } from 'state/routing/types'
 import { QuoteData, V2PoolInRoute, V3PoolInRoute } from 'state/routing/types'
+=======
+import { Pool } from '@uniswap/v3-sdk'
+import { QuoteResult, QuoteState, URAQuoteType } from 'state/routing/types'
+import { ClassicQuoteData, V2PoolInRoute, V3PoolInRoute } from 'state/routing/types'
+>>>>>>> 1c50460160f44d396574c5e5a28bccfda6a0f12c
 
 // from routing-api (https://github.com/Uniswap/routing-api/blob/main/lib/handlers/quote/quote.ts#L243-L311)
 export function transformSwapRouteToGetQuoteResult(
@@ -110,7 +116,7 @@ export function transformSwapRouteToGetQuoteResult(
     routeResponse.push(curRoute)
   }
 
-  const result: QuoteData = {
+  const result: ClassicQuoteData = {
     methodParameters,
     blockNumber: blockNumber.toString(),
     amount: amount.quotient.toString(),
@@ -128,5 +134,5 @@ export function transformSwapRouteToGetQuoteResult(
     routeString: routeAmountsToString(route),
   }
 
-  return { state: QuoteState.SUCCESS, data: result }
+  return { state: QuoteState.SUCCESS, data: { routing: URAQuoteType.CLASSIC, quote: result, allQuotes: [] } }
 }

@@ -1,0 +1,532 @@
+yarn run v1.22.19
+$ craco start
+(node:14011) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:14011) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+Compiled successfully!
+
+You can now view @thinkincoin/swap in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://10.128.0.4:3000
+
+Note that the development build is not optimized.
+To create a production build, use yarn build.
+
+webpack compiled successfully
+ERROR in src/components/swap/TradePrice.tsx:36:38
+TS2345: Argument of type 'Price<Currency, Currency>' is not assignable to parameter of type 'Nullish<Price<Currency, Currency>>'.
+  Types of property 'multiply' are incompatible.
+    Type '<TOtherQuote extends import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/currency").Currency>(other: import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/c...' is not assignable to type '<TOtherQuote extends import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency>(other: import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency, TOtherQ...'.
+      Types of parameters 'other' and 'other' are incompatible.
+        Type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency, TOtherQuote>' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/currency").Currency, TOtherQuote>'.
+          The types returned by 'invert()' are incompatible between these types.
+            Type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/fractions/price").Price<TOtherQuote, import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency>' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/fractions/price").Price<TOtherQuote, import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/currency").Currency>'.
+              Types have separate declarations of a private property 'adjustedForDecimals'.
+    34 |   const { data: usdPrice } = useUSDPrice(tryParseCurrencyAmount('1', showInverted ? baseCurrency : quoteCurrency))
+    35 |
+  > 36 |   const formattedPrice = formatPrice(showInverted ? price : price.invert(), NumberType.TokenTx)
+       |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    37 |
+    38 |   const label = showInverted ? `${price.quoteCurrency?.symbol}` : `${price.baseCurrency?.symbol} `
+    39 |   const labelInverted = showInverted ? `${price.baseCurrency?.symbol} ` : `${price.quoteCurrency?.symbol}`
+
+ERROR in src/constants/providers.ts:25:11
+TS7053: Element implicitly has an 'any' type because expression of type 'ChainId.MAINNET | ChainId.GOERLI | ChainId.SEPOLIA | ChainId.OPTIMISM | ChainId.OPTIMISM_GOERLI | ChainId.ARBITRUM_ONE | ChainId.ARBITRUM_GOERLI | ChainId.POLYGON | ChainId.POLYGON_MUMBAI | ... 5 more ... | ChainId.BASE_GOERLI' can't be used to index type '{ 1: string[]; 5: string[]; 11155111: string[]; 10: string[]; 420: string[]; 42161: string[]; 421613: string[]; 137: string[]; 80001: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+  Property '[ChainId.BASE_GOERLI]' does not exist on type '{ 1: string[]; 5: string[]; 11155111: string[]; 10: string[]; 420: string[]; 42161: string[]; 421613: string[]; 137: string[]; 80001: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+    23 |   constructor(chainId: SupportedChainsType) {
+    24 |     // Including networkish allows ethers to skip the initial detectNetwork call.
+  > 25 |     super(RPC_URLS[chainId][0], /* networkish= */ { chainId, name: CHAIN_IDS_TO_NAMES[chainId] })
+       |           ^^^^^^^^^^^^^^^^^
+    26 |
+    27 |     // NB: Third-party providers (eg MetaMask) will have their own polling intervals,
+    28 |     // which should be left as-is to allow operations (eg transaction confirmation) to resolve faster.
+
+ERROR in src/constants/providers.ts:25:68
+TS7053: Element implicitly has an 'any' type because expression of type 'ChainId.MAINNET | ChainId.GOERLI | ChainId.SEPOLIA | ChainId.OPTIMISM | ChainId.OPTIMISM_GOERLI | ChainId.ARBITRUM_ONE | ChainId.ARBITRUM_GOERLI | ChainId.POLYGON | ChainId.POLYGON_MUMBAI | ... 5 more ... | ChainId.BASE_GOERLI' can't be used to index type '{ readonly 1: "mainnet"; readonly 5: "goerli"; readonly 11155111: "sepolia"; readonly 137: "polygon"; readonly 80001: "polygon_mumbai"; readonly 42220: "celo"; readonly 44787: "celo_alfajores"; ... 6 more ...; readonly 1666600000: "harmony"; }'.
+  Property '[ChainId.BASE_GOERLI]' does not exist on type '{ readonly 1: "mainnet"; readonly 5: "goerli"; readonly 11155111: "sepolia"; readonly 137: "polygon"; readonly 80001: "polygon_mumbai"; readonly 42220: "celo"; readonly 44787: "celo_alfajores"; ... 6 more ...; readonly 1666600000: "harmony"; }'.
+    23 |   constructor(chainId: SupportedChainsType) {
+    24 |     // Including networkish allows ethers to skip the initial detectNetwork call.
+  > 25 |     super(RPC_URLS[chainId][0], /* networkish= */ { chainId, name: CHAIN_IDS_TO_NAMES[chainId] })
+       |                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    26 |
+    27 |     // NB: Third-party providers (eg MetaMask) will have their own polling intervals,
+    28 |     // which should be left as-is to allow operations (eg transaction confirmation) to resolve faster.
+
+ERROR in src/constants/providers.ts:60:14
+TS2741: Property '84531' is missing in type '{ 1: AppJsonRpcProvider; 5: AppJsonRpcProvider; 11155111: AppJsonRpcProvider; 10: AppJsonRpcProvider; ... 9 more ...; 1666600000: AppJsonRpcProvider; }' but required in type '{ 1: StaticJsonRpcProvider; 5: StaticJsonRpcProvider; 11155111: StaticJsonRpcProvider; 10: StaticJsonRpcProvider; ... 10 more ...; 84531: StaticJsonRpcProvider; }'.
+    58 |  * These are the only JsonRpcProviders used directly by the interface.
+    59 |  */
+  > 60 | export const RPC_PROVIDERS: { [key in SupportedChainsType]: StaticJsonRpcProvider } = {
+       |              ^^^^^^^^^^^^^
+    61 |   [ChainId.MAINNET]: new AppJsonRpcProvider(ChainId.MAINNET),
+    62 |   [ChainId.GOERLI]: new AppJsonRpcProvider(ChainId.GOERLI),
+    63 |   [ChainId.SEPOLIA]: new AppJsonRpcProvider(ChainId.SEPOLIA),
+
+ERROR in src/hooks/useSwitchChain.ts:21:14
+TS7053: Element implicitly has an 'any' type because expression of type 'ChainId.OPTIMISM | ChainId.OPTIMISM_GOERLI | ChainId.ARBITRUM_ONE | ChainId.ARBITRUM_GOERLI | ChainId.POLYGON | ChainId.POLYGON_MUMBAI | ChainId.CELO | ChainId.CELO_ALFAJORES | ChainId.BNB | ChainId.AVALANCHE | ChainId.HARMONY | ChainId.BASE_GOERLI' can't be used to index type '{ 1: string[]; 5: string[]; 11155111: string[]; 137: string[]; 80001: string[]; 42161: string[]; 421613: string[]; 10: string[]; 420: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+  Property '[ChainId.BASE_GOERLI]' does not exist on type '{ 1: string[]; 5: string[]; 11155111: string[]; 137: string[]; 80001: string[]; 42161: string[]; 421613: string[]; 10: string[]; 420: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+    19 |     // See the definition of FALLBACK_URLS for more details.
+    20 |     default:
+  > 21 |       return FALLBACK_URLS[chainId][0]
+       |              ^^^^^^^^^^^^^^^^^^^^^^
+    22 |   }
+    23 | }
+    24 |
+
+ERROR in src/pages/Pool/PositionPage.tsx:201:24
+TS2345: Argument of type 'Price<Token, Token>' is not assignable to parameter of type 'Nullish<Price<Currency, Currency>>'.
+    199 |         </ExtentsText>
+    200 |         <ThemedText.DeprecatedMediumHeader textAlign="center">
+  > 201 |           {formatPrice(inverted ? pool.token1Price : pool.token0Price, NumberType.TokenTx)}
+        |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    202 |         </ThemedText.DeprecatedMediumHeader>
+    203 |         <ExtentsText>
+    204 |           <Trans>
+
+ERROR in src/state/routing/utils.ts:30:38
+TS2322: Type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/chains").ChainId' is not assignable to type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/chains").ChainId'.
+  Property 'HARMONY' is missing in type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/chains").ChainId'.
+    28 |   if (supportedChainId) {
+    29 |     const provider = RPC_PROVIDERS[supportedChainId]
+  > 30 |     const router = new AlphaRouter({ chainId, provider })
+       |                                      ^^^^^^^
+    31 |     routers.set(chainId, router)
+    32 |     return router
+    33 |   }
+
+ERROR in src/test-utils/constants.ts:36:7
+TS2322: Type 'V3Route' is not assignable to type 'Route<Token, Token>'.
+  Types of property 'pools' are incompatible.
+    Type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool[]' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool[]'.
+      Type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool'.
+        Types have separate declarations of a private property '_token0Price'.
+    34 |   v3Routes: [
+    35 |     {
+  > 36 |       routev3: new V3Route([TEST_POOL_12], TEST_TOKEN_1, TEST_TOKEN_2),
+       |       ^^^^^^^
+    37 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    38 |       outputAmount: toCurrencyAmount(TEST_TOKEN_2, 1000),
+    39 |     },
+
+ERROR in src/test-utils/constants.ts:36:29
+TS2322: Type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool' is not assignable to type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool'.
+  Types have separate declarations of a private property '_token0Price'.
+    34 |   v3Routes: [
+    35 |     {
+  > 36 |       routev3: new V3Route([TEST_POOL_12], TEST_TOKEN_1, TEST_TOKEN_2),
+       |                             ^^^^^^^^^^^^
+    37 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    38 |       outputAmount: toCurrencyAmount(TEST_TOKEN_2, 1000),
+    39 |     },
+
+ERROR in src/test-utils/constants.ts:49:7
+TS2322: Type 'V3Route' is not assignable to type 'Route<Token, Token>'.
+    47 |   v3Routes: [
+    48 |     {
+  > 49 |       routev3: new V3Route([TEST_POOL_13], TEST_TOKEN_1, TEST_TOKEN_3),
+       |       ^^^^^^^
+    50 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    51 |       outputAmount: toCurrencyAmount(TEST_TOKEN_3, 1000),
+    52 |     },
+
+ERROR in src/test-utils/constants.ts:49:29
+TS2322: Type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool' is not assignable to type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool'.
+    47 |   v3Routes: [
+    48 |     {
+  > 49 |       routev3: new V3Route([TEST_POOL_13], TEST_TOKEN_1, TEST_TOKEN_3),
+       |                             ^^^^^^^^^^^^
+    50 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    51 |       outputAmount: toCurrencyAmount(TEST_TOKEN_3, 1000),
+    52 |     },
+
+ERROR in src/utils/formatTickPrice.ts:23:22
+TS2345: Argument of type 'Price<Token, Token> | undefined' is not assignable to parameter of type 'Nullish<Price<Currency, Currency>>'.
+  Type 'Price<Token, Token>' is not assignable to type 'Nullish<Price<Currency, Currency>>'.
+    Types of property 'multiply' are incompatible.
+      Type '<TOtherQuote extends Currency>(other: Price<Token, TOtherQuote>) => Price<Token, TOtherQuote>' is not assignable to type '<TOtherQuote extends Currency>(other: Price<Currency, TOtherQuote>) => Price<Currency, TOtherQuote>'.
+        Types of parameters 'other' and 'other' are incompatible.
+          Type 'Price<Currency, TOtherQuote>' is not assignable to type 'Price<Token, TOtherQuote>'.
+            Types of property 'baseCurrency' are incompatible.
+              Type 'Currency' is not assignable to type 'Token'.
+                Type 'NativeCurrency' is missing the following properties from type 'Token': address, sortsBefore
+    21 |   }
+    22 |
+  > 23 |   return formatPrice(price, numberType ?? NumberType.TokenNonTx)
+       |                      ^^^^^
+    24 | }
+    25 |
+
+ERROR in src/utils/transformSwapRouteToGetQuoteResult.ts:69:35
+TS2339: Property 'reserve0' does not exist on type 'TPool'.
+  Property 'reserve0' does not exist on type 'Pool'.
+    67 |         })
+    68 |       } else {
+  > 69 |         const reserve0 = nextPool.reserve0
+       |                                   ^^^^^^^^
+    70 |         const reserve1 = nextPool.reserve1
+    71 |
+    72 |         curRoute.push({
+
+ERROR in src/utils/transformSwapRouteToGetQuoteResult.ts:70:35
+TS2339: Property 'reserve1' does not exist on type 'TPool'.
+  Property 'reserve1' does not exist on type 'Pool'.
+    68 |       } else {
+    69 |         const reserve0 = nextPool.reserve0
+  > 70 |         const reserve1 = nextPool.reserve1
+       |                                   ^^^^^^^^
+    71 |
+    72 |         curRoute.push({
+    73 |           type: 'v2-pool',
+
+Compiling...
+Failed to compile.
+
+SyntaxError: /var/www/html/swap/src/components/Logo/AppleLogo.tsx: Unexpected token (11:4)
+   9 |  <defs>
+  10 |   <style type="text/css">
+> 11 |    <![CDATA[
+     |     ^
+  12 |     .fil1 {fill:#E6E6E6}
+  13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+  14 |    ]]>
+WARNING in [eslint] 
+src/components/Logo/AppleLogo.tsx
+  Line 11:4:  Parsing error: Identifier expected
+
+ERROR in ./src/components/Logo/AppleLogo.tsx
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/html/swap/src/components/Logo/AppleLogo.tsx: Unexpected token (11:4)
+
+   9 |  <defs>
+  10 |   <style type="text/css">
+> 11 |    <![CDATA[
+     |     ^
+  12 |     .fil1 {fill:#E6E6E6}
+  13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+  14 |    ]]>
+    at instantiate (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:63:32)
+    at constructor (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:358:12)
+    at TypeScriptParserMixin.raise (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:3255:19)
+    at TypeScriptParserMixin.unexpected (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:3285:16)
+    at TypeScriptParserMixin.jsxParseIdentifier (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6767:12)
+    at TypeScriptParserMixin.jsxParseNamespacedName (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6774:23)
+    at TypeScriptParserMixin.jsxParseElementName (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6783:21)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6863:22)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6888:33)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6900:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6900:32)
+    at TypeScriptParserMixin.jsxParseElementAt (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6900:32)
+    at TypeScriptParserMixin.jsxParseElement (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6957:17)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6969:19)
+    at TypeScriptParserMixin.parseExprSubscripts (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10890:23)
+    at TypeScriptParserMixin.parseUpdate (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10873:21)
+    at TypeScriptParserMixin.parseMaybeUnary (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10849:23)
+    at TypeScriptParserMixin.parseMaybeUnary (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:9738:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10687:61)
+    at TypeScriptParserMixin.parseExprOps (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10692:23)
+    at TypeScriptParserMixin.parseMaybeConditional (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10669:23)
+    at TypeScriptParserMixin.parseMaybeAssign (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10630:21)
+    at /var/www/html/swap/node_modules/@babel/parser/lib/index.js:9674:39
+    at TypeScriptParserMixin.tryParse (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:3634:20)
+    at TypeScriptParserMixin.parseMaybeAssign (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:9674:18)
+    at /var/www/html/swap/node_modules/@babel/parser/lib/index.js:10600:39
+    at TypeScriptParserMixin.allowInAnd (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:12280:12)
+    at TypeScriptParserMixin.parseMaybeAssignAllowIn (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10600:17)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:11513:28)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:11164:23)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6974:20)
+    at TypeScriptParserMixin.parseExprSubscripts (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10890:23)
+    at TypeScriptParserMixin.parseUpdate (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10873:21)
+    at TypeScriptParserMixin.parseMaybeUnary (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10849:23)
+    at TypeScriptParserMixin.parseMaybeUnary (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:9738:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10687:61)
+    at TypeScriptParserMixin.parseExprOps (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10692:23)
+    at TypeScriptParserMixin.parseMaybeConditional (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10669:23)
+    at TypeScriptParserMixin.parseMaybeAssign (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10630:21)
+    at TypeScriptParserMixin.parseMaybeAssign (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:9685:20)
+    at TypeScriptParserMixin.parseFunctionBody (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:11940:24)
+    at TypeScriptParserMixin.parseArrowExpression (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:11922:10)
+    at TypeScriptParserMixin.parseParenAndDistinguishExpression (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:11525:12)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:11164:23)
+    at TypeScriptParserMixin.parseExprAtom (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:6974:20)
+    at TypeScriptParserMixin.parseExprSubscripts (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10890:23)
+    at TypeScriptParserMixin.parseUpdate (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10873:21)
+    at TypeScriptParserMixin.parseMaybeUnary (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10849:23)
+    at TypeScriptParserMixin.parseMaybeUnary (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:9738:18)
+    at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (/var/www/html/swap/node_modules/@babel/parser/lib/index.js:10687:61)
+
+webpack compiled with 1 error and 1 warning
+Files successfully emitted, waiting for typecheck results...
+Issues checking in progress...
+ERROR in src/components/Logo/AppleLogo.tsx:11:5
+TS1003: Identifier expected.
+     9 |  <defs>
+    10 |   <style type="text/css">
+  > 11 |    <![CDATA[
+       |     ^
+    12 |     .fil1 {fill:#E6E6E6}
+    13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+    14 |    ]]>
+
+ERROR in src/components/Logo/AppleLogo.tsx:12:12
+TS2304: Cannot find name 'fill'.
+    10 |   <style type="text/css">
+    11 |    <![CDATA[
+  > 12 |     .fil1 {fill:#E6E6E6}
+       |            ^^^^
+    13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+    14 |    ]]>
+    15 |   </style>
+
+ERROR in src/components/Logo/AppleLogo.tsx:12:16
+TS1005: '}' expected.
+    10 |   <style type="text/css">
+    11 |    <![CDATA[
+  > 12 |     .fil1 {fill:#E6E6E6}
+       |                ^
+    13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+    14 |    ]]>
+    15 |   </style>
+
+ERROR in src/components/Logo/AppleLogo.tsx:12:24
+TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    10 |   <style type="text/css">
+    11 |    <![CDATA[
+  > 12 |     .fil1 {fill:#E6E6E6}
+       |                        ^
+    13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+    14 |    ]]>
+    15 |   </style>
+
+ERROR in src/components/Logo/AppleLogo.tsx:13:12
+TS2304: Cannot find name 'fill'.
+    11 |    <![CDATA[
+    12 |     .fil1 {fill:#E6E6E6}
+  > 13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+       |            ^^^^
+    14 |    ]]>
+    15 |   </style>
+    16 |  </defs>
+
+ERROR in src/components/Logo/AppleLogo.tsx:13:16
+TS1005: '}' expected.
+    11 |    <![CDATA[
+    12 |     .fil1 {fill:#E6E6E6}
+  > 13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+       |                ^
+    14 |    ]]>
+    15 |   </style>
+    16 |  </defs>
+
+ERROR in src/components/Logo/AppleLogo.tsx:13:64
+TS1381: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+    11 |    <![CDATA[
+    12 |     .fil1 {fill:#E6E6E6}
+  > 13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+       |                                                                ^
+    14 |    ]]>
+    15 |   </style>
+    16 |  </defs>
+
+ERROR in src/components/Logo/AppleLogo.tsx:14:6
+TS1382: Unexpected token. Did you mean `{'>'}` or `&gt;`?
+    12 |     .fil1 {fill:#E6E6E6}
+    13 |     .fil0 {fill:#333333;fill-rule:nonzero;fill-opacity:0.501961}
+  > 14 |    ]]>
+       |      ^
+    15 |   </style>
+    16 |  </defs>
+    17 |  <g id="Layer_x0020_1">
+
+ERROR in src/components/Logo/AppleLogo.tsx:20:10
+TS2322: Type '{ class: string; d: string; }' is not assignable to type 'SVGProps<SVGPathElement>'.
+  Property 'class' does not exist on type 'SVGProps<SVGPathElement>'. Did you mean 'className'?
+    18 |   <metadata id="CorelCorpID_0Corel-Layer"/>
+    19 |   <g id="_1861183290976">
+  > 20 |    <path class="fil0" d="M20 14c0,0 0,1 0,1l0 12c1,-1 2,-1 3,-2 0,0 0,0 0,0l1 0c0,1 0,1 0,1 -1,1 -3,2 -4,2l0 1c0,1 0,1 0,2 0,0 -1,0 -1,0 -1,0 -1,0 -1,0 0,-1 0,-1 0,-2 0,0 0,0 0,0 0,0 0,0 0,0 -3,0 -5,-1 -7,-3 -2,-2 -3,-4 -3,-7 0,-2 1,-4 3,-6 1,-1 2,-2 2,-2l0 -9c0,0 1,-1 1,-1l1 0c0,0 1,1 0,1l0 4c1,0 2,0 2,0 1,0 1,1 1,1 0,1 0,1 -1,1l-2 0 0 2c1,0 2,0 3,0 2,0 4,1 6,3 0,0 0,0 0,0l-1 1c0,0 0,0 0,0 -2,-2 -3,-2 -5,-2 -1,0 -2,0 -3,0l0 11 0 1c0,0 0,0 -1,0 0,0 -1,0 -1,0l0 -1 0 -10c0,0 0,0 -1,1 -1,1 -2,3 -2,5 0,2 1,4 2,6 2,1 3,2 6,2 0,0 0,0 0,0 0,-4 0,-8 0,-12 0,0 0,-2 0,-2 0,0 0,0 1,0 1,0 1,0 1,1z"/>
+       |          ^^^^^
+    21 |    <path class="fil1" d="M23 24l1 1c0,0 0,0 0,0 -1,2 -3,2 -4,3l0 3 -2 0 0 -3c0,0 -1,0 -1,0 -2,0 -4,-1 -6,-3 -2,-1 -3,-4 -3,-6 0,-3 1,-5 3,-7 1,0 1,-1 2,-1l0 -10 2 0 0 5 3 0 0 2 -3 0 0 2c1,0 2,0 2,0 3,0 5,1 7,2 0,0 0,0 0,1l-1 1c0,0 0,0 0,-1 -2,-1 -3,-2 -6,-2 0,0 -1,0 -2,0l0 13 -2 0 0 -12c0,1 -1,1 -1,1 -1,2 -2,4 -2,6 0,2 1,4 2,5 1,2 3,3 5,3 0,0 1,0 1,0l0 -14 2 0 0 13c1,0 2,-1 3,-2 0,0 0,0 0,0z"/>
+    22 |   </g>
+    23 |  </g>
+
+ERROR in src/components/Logo/AppleLogo.tsx:21:10
+TS2322: Type '{ class: string; d: string; }' is not assignable to type 'SVGProps<SVGPathElement>'.
+  Property 'class' does not exist on type 'SVGProps<SVGPathElement>'. Did you mean 'className'?
+    19 |   <g id="_1861183290976">
+    20 |    <path class="fil0" d="M20 14c0,0 0,1 0,1l0 12c1,-1 2,-1 3,-2 0,0 0,0 0,0l1 0c0,1 0,1 0,1 -1,1 -3,2 -4,2l0 1c0,1 0,1 0,2 0,0 -1,0 -1,0 -1,0 -1,0 -1,0 0,-1 0,-1 0,-2 0,0 0,0 0,0 0,0 0,0 0,0 -3,0 -5,-1 -7,-3 -2,-2 -3,-4 -3,-7 0,-2 1,-4 3,-6 1,-1 2,-2 2,-2l0 -9c0,0 1,-1 1,-1l1 0c0,0 1,1 0,1l0 4c1,0 2,0 2,0 1,0 1,1 1,1 0,1 0,1 -1,1l-2 0 0 2c1,0 2,0 3,0 2,0 4,1 6,3 0,0 0,0 0,0l-1 1c0,0 0,0 0,0 -2,-2 -3,-2 -5,-2 -1,0 -2,0 -3,0l0 11 0 1c0,0 0,0 -1,0 0,0 -1,0 -1,0l0 -1 0 -10c0,0 0,0 -1,1 -1,1 -2,3 -2,5 0,2 1,4 2,6 2,1 3,2 6,2 0,0 0,0 0,0 0,-4 0,-8 0,-12 0,0 0,-2 0,-2 0,0 0,0 1,0 1,0 1,0 1,1z"/>
+  > 21 |    <path class="fil1" d="M23 24l1 1c0,0 0,0 0,0 -1,2 -3,2 -4,3l0 3 -2 0 0 -3c0,0 -1,0 -1,0 -2,0 -4,-1 -6,-3 -2,-1 -3,-4 -3,-6 0,-3 1,-5 3,-7 1,0 1,-1 2,-1l0 -10 2 0 0 5 3 0 0 2 -3 0 0 2c1,0 2,0 2,0 3,0 5,1 7,2 0,0 0,0 0,1l-1 1c0,0 0,0 0,-1 -2,-1 -3,-2 -6,-2 0,0 -1,0 -2,0l0 13 -2 0 0 -12c0,1 -1,1 -1,1 -1,2 -2,4 -2,6 0,2 1,4 2,5 1,2 3,3 5,3 0,0 1,0 1,0l0 -14 2 0 0 13c1,0 2,-1 3,-2 0,0 0,0 0,0z"/>
+       |          ^^^^^
+    22 |   </g>
+    23 |  </g>
+    24 | </svg>
+
+ERROR in src/components/swap/TradePrice.tsx:36:38
+TS2345: Argument of type 'Price<Currency, Currency>' is not assignable to parameter of type 'Nullish<Price<Currency, Currency>>'.
+  Types of property 'multiply' are incompatible.
+    Type '<TOtherQuote extends import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/currency").Currency>(other: import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/c...' is not assignable to type '<TOtherQuote extends import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency>(other: import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency, TOtherQ...'.
+      Types of parameters 'other' and 'other' are incompatible.
+        Type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency, TOtherQuote>' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/fractions/price").Price<import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/currency").Currency, TOtherQuote>'.
+          The types returned by 'invert()' are incompatible between these types.
+            Type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/fractions/price").Price<TOtherQuote, import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/entities/currency").Currency>' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/fractions/price").Price<TOtherQuote, import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/entities/currency").Currency>'.
+              Types have separate declarations of a private property 'adjustedForDecimals'.
+    34 |   const { data: usdPrice } = useUSDPrice(tryParseCurrencyAmount('1', showInverted ? baseCurrency : quoteCurrency))
+    35 |
+  > 36 |   const formattedPrice = formatPrice(showInverted ? price : price.invert(), NumberType.TokenTx)
+       |                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    37 |
+    38 |   const label = showInverted ? `${price.quoteCurrency?.symbol}` : `${price.baseCurrency?.symbol} `
+    39 |   const labelInverted = showInverted ? `${price.baseCurrency?.symbol} ` : `${price.quoteCurrency?.symbol}`
+
+ERROR in src/constants/providers.ts:25:11
+TS7053: Element implicitly has an 'any' type because expression of type 'ChainId.MAINNET | ChainId.GOERLI | ChainId.SEPOLIA | ChainId.OPTIMISM | ChainId.OPTIMISM_GOERLI | ChainId.ARBITRUM_ONE | ChainId.ARBITRUM_GOERLI | ChainId.POLYGON | ChainId.POLYGON_MUMBAI | ... 5 more ... | ChainId.BASE_GOERLI' can't be used to index type '{ 1: string[]; 5: string[]; 11155111: string[]; 10: string[]; 420: string[]; 42161: string[]; 421613: string[]; 137: string[]; 80001: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+  Property '[ChainId.BASE_GOERLI]' does not exist on type '{ 1: string[]; 5: string[]; 11155111: string[]; 10: string[]; 420: string[]; 42161: string[]; 421613: string[]; 137: string[]; 80001: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+    23 |   constructor(chainId: SupportedChainsType) {
+    24 |     // Including networkish allows ethers to skip the initial detectNetwork call.
+  > 25 |     super(RPC_URLS[chainId][0], /* networkish= */ { chainId, name: CHAIN_IDS_TO_NAMES[chainId] })
+       |           ^^^^^^^^^^^^^^^^^
+    26 |
+    27 |     // NB: Third-party providers (eg MetaMask) will have their own polling intervals,
+    28 |     // which should be left as-is to allow operations (eg transaction confirmation) to resolve faster.
+
+ERROR in src/constants/providers.ts:25:68
+TS7053: Element implicitly has an 'any' type because expression of type 'ChainId.MAINNET | ChainId.GOERLI | ChainId.SEPOLIA | ChainId.OPTIMISM | ChainId.OPTIMISM_GOERLI | ChainId.ARBITRUM_ONE | ChainId.ARBITRUM_GOERLI | ChainId.POLYGON | ChainId.POLYGON_MUMBAI | ... 5 more ... | ChainId.BASE_GOERLI' can't be used to index type '{ readonly 1: "mainnet"; readonly 5: "goerli"; readonly 11155111: "sepolia"; readonly 137: "polygon"; readonly 80001: "polygon_mumbai"; readonly 42220: "celo"; readonly 44787: "celo_alfajores"; ... 6 more ...; readonly 1666600000: "harmony"; }'.
+  Property '[ChainId.BASE_GOERLI]' does not exist on type '{ readonly 1: "mainnet"; readonly 5: "goerli"; readonly 11155111: "sepolia"; readonly 137: "polygon"; readonly 80001: "polygon_mumbai"; readonly 42220: "celo"; readonly 44787: "celo_alfajores"; ... 6 more ...; readonly 1666600000: "harmony"; }'.
+    23 |   constructor(chainId: SupportedChainsType) {
+    24 |     // Including networkish allows ethers to skip the initial detectNetwork call.
+  > 25 |     super(RPC_URLS[chainId][0], /* networkish= */ { chainId, name: CHAIN_IDS_TO_NAMES[chainId] })
+       |                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    26 |
+    27 |     // NB: Third-party providers (eg MetaMask) will have their own polling intervals,
+    28 |     // which should be left as-is to allow operations (eg transaction confirmation) to resolve faster.
+
+ERROR in src/constants/providers.ts:60:14
+TS2741: Property '84531' is missing in type '{ 1: AppJsonRpcProvider; 5: AppJsonRpcProvider; 11155111: AppJsonRpcProvider; 10: AppJsonRpcProvider; ... 9 more ...; 1666600000: AppJsonRpcProvider; }' but required in type '{ 1: StaticJsonRpcProvider; 5: StaticJsonRpcProvider; 11155111: StaticJsonRpcProvider; 10: StaticJsonRpcProvider; ... 10 more ...; 84531: StaticJsonRpcProvider; }'.
+    58 |  * These are the only JsonRpcProviders used directly by the interface.
+    59 |  */
+  > 60 | export const RPC_PROVIDERS: { [key in SupportedChainsType]: StaticJsonRpcProvider } = {
+       |              ^^^^^^^^^^^^^
+    61 |   [ChainId.MAINNET]: new AppJsonRpcProvider(ChainId.MAINNET),
+    62 |   [ChainId.GOERLI]: new AppJsonRpcProvider(ChainId.GOERLI),
+    63 |   [ChainId.SEPOLIA]: new AppJsonRpcProvider(ChainId.SEPOLIA),
+
+ERROR in src/hooks/useSwitchChain.ts:21:14
+TS7053: Element implicitly has an 'any' type because expression of type 'ChainId.OPTIMISM | ChainId.OPTIMISM_GOERLI | ChainId.ARBITRUM_ONE | ChainId.ARBITRUM_GOERLI | ChainId.POLYGON | ChainId.POLYGON_MUMBAI | ChainId.CELO | ChainId.CELO_ALFAJORES | ChainId.BNB | ChainId.AVALANCHE | ChainId.HARMONY | ChainId.BASE_GOERLI' can't be used to index type '{ 1: string[]; 5: string[]; 11155111: string[]; 137: string[]; 80001: string[]; 42161: string[]; 421613: string[]; 10: string[]; 420: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+  Property '[ChainId.BASE_GOERLI]' does not exist on type '{ 1: string[]; 5: string[]; 11155111: string[]; 137: string[]; 80001: string[]; 42161: string[]; 421613: string[]; 10: string[]; 420: string[]; 42220: string[]; 44787: string[]; 56: string[]; 43114: string[]; 1666600000: string[]; }'.
+    19 |     // See the definition of FALLBACK_URLS for more details.
+    20 |     default:
+  > 21 |       return FALLBACK_URLS[chainId][0]
+       |              ^^^^^^^^^^^^^^^^^^^^^^
+    22 |   }
+    23 | }
+    24 |
+
+ERROR in src/pages/Pool/PositionPage.tsx:201:24
+TS2345: Argument of type 'Price<Token, Token>' is not assignable to parameter of type 'Nullish<Price<Currency, Currency>>'.
+    199 |         </ExtentsText>
+    200 |         <ThemedText.DeprecatedMediumHeader textAlign="center">
+  > 201 |           {formatPrice(inverted ? pool.token1Price : pool.token0Price, NumberType.TokenTx)}
+        |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    202 |         </ThemedText.DeprecatedMediumHeader>
+    203 |         <ExtentsText>
+    204 |           <Trans>
+
+ERROR in src/state/routing/utils.ts:30:38
+TS2322: Type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/sdk-core/dist/chains").ChainId' is not assignable to type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/chains").ChainId'.
+  Property 'HARMONY' is missing in type 'import("/var/www/html/swap/node_modules/@uniswap/sdk-core/dist/chains").ChainId'.
+    28 |   if (supportedChainId) {
+    29 |     const provider = RPC_PROVIDERS[supportedChainId]
+  > 30 |     const router = new AlphaRouter({ chainId, provider })
+       |                                      ^^^^^^^
+    31 |     routers.set(chainId, router)
+    32 |     return router
+    33 |   }
+
+ERROR in src/test-utils/constants.ts:36:7
+TS2322: Type 'V3Route' is not assignable to type 'Route<Token, Token>'.
+  Types of property 'pools' are incompatible.
+    Type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool[]' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool[]'.
+      Type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool' is not assignable to type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool'.
+        Types have separate declarations of a private property '_token0Price'.
+    34 |   v3Routes: [
+    35 |     {
+  > 36 |       routev3: new V3Route([TEST_POOL_12], TEST_TOKEN_1, TEST_TOKEN_2),
+       |       ^^^^^^^
+    37 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    38 |       outputAmount: toCurrencyAmount(TEST_TOKEN_2, 1000),
+    39 |     },
+
+ERROR in src/test-utils/constants.ts:36:29
+TS2322: Type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool' is not assignable to type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool'.
+  Types have separate declarations of a private property '_token0Price'.
+    34 |   v3Routes: [
+    35 |     {
+  > 36 |       routev3: new V3Route([TEST_POOL_12], TEST_TOKEN_1, TEST_TOKEN_2),
+       |                             ^^^^^^^^^^^^
+    37 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    38 |       outputAmount: toCurrencyAmount(TEST_TOKEN_2, 1000),
+    39 |     },
+
+ERROR in src/test-utils/constants.ts:49:7
+TS2322: Type 'V3Route' is not assignable to type 'Route<Token, Token>'.
+    47 |   v3Routes: [
+    48 |     {
+  > 49 |       routev3: new V3Route([TEST_POOL_13], TEST_TOKEN_1, TEST_TOKEN_3),
+       |       ^^^^^^^
+    50 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    51 |       outputAmount: toCurrencyAmount(TEST_TOKEN_3, 1000),
+    52 |     },
+
+ERROR in src/test-utils/constants.ts:49:29
+TS2322: Type 'import("/var/www/html/swap/node_modules/@thinkincoin-libs/uniswap-v3-sdk/dist/entities/pool").Pool' is not assignable to type 'import("/var/www/html/swap/node_modules/@uniswap/v3-sdk/dist/entities/pool").Pool'.
+    47 |   v3Routes: [
+    48 |     {
+  > 49 |       routev3: new V3Route([TEST_POOL_13], TEST_TOKEN_1, TEST_TOKEN_3),
+       |                             ^^^^^^^^^^^^
+    50 |       inputAmount: toCurrencyAmount(TEST_TOKEN_1, 1000),
+    51 |       outputAmount: toCurrencyAmount(TEST_TOKEN_3, 1000),
+    52 |     },
+
+ERROR in src/utils/formatTickPrice.ts:23:22
+TS2345: Argument of type 'Price<Token, Token> | undefined' is not assignable to parameter of type 'Nullish<Price<Currency, Currency>>'.
+  Type 'Price<Token, Token>' is not assignable to type 'Nullish<Price<Currency, Currency>>'.
+    Types of property 'multiply' are incompatible.
+      Type '<TOtherQuote extends Currency>(other: Price<Token, TOtherQuote>) => Price<Token, TOtherQuote>' is not assignable to type '<TOtherQuote extends Currency>(other: Price<Currency, TOtherQuote>) => Price<Currency, TOtherQuote>'.
+        Types of parameters 'other' and 'other' are incompatible.
+          Type 'Price<Currency, TOtherQuote>' is not assignable to type 'Price<Token, TOtherQuote>'.
+            Types of property 'baseCurrency' are incompatible.
+              Type 'Currency' is not assignable to type 'Token'.
+                Type 'NativeCurrency' is missing the following properties from type 'Token': address, sortsBefore
+    21 |   }
+    22 |
+  > 23 |   return formatPrice(price, numberType ?? NumberType.TokenNonTx)
+       |                      ^^^^^
+    24 | }
+    25 |
+
+ERROR in src/utils/transformSwapRouteToGetQuoteResult.ts:69:35
+TS2339: Property 'reserve0' does not exist on type 'TPool'.
+  Property 'reserve0' does not exist on type 'Pool'.
+    67 |         })
+    68 |       } else {
+  > 69 |         const reserve0 = nextPool.reserve0
+       |                                   ^^^^^^^^
+    70 |         const reserve1 = nextPool.reserve1
+    71 |
+    72 |         curRoute.push({
+
+ERROR in src/utils/transformSwapRouteToGetQuoteResult.ts:70:35
+TS2339: Property 'reserve1' does not exist on type 'TPool'.
+  Property 'reserve1' does not exist on type 'Pool'.
+    68 |       } else {
+    69 |         const reserve0 = nextPool.reserve0
+  > 70 |         const reserve1 = nextPool.reserve1
+       |                                   ^^^^^^^^
+    71 |
+    72 |         curRoute.push({
+    73 |           type: 'v2-pool',
+
+error Command failed with signal "SIGTERM".
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

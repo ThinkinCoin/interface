@@ -1,7 +1,13 @@
 import { screen } from '@testing-library/react'
+<<<<<<< HEAD
 import { Currency, CurrencyAmount as mockCurrencyAmount, Token as mockToken } from '@thinkincoin/sdk-core'
+=======
+import { Currency, CurrencyAmount as mockCurrencyAmount, Token as mockToken } from '@uniswap/sdk-core'
+import { useWeb3React } from '@web3-react/core'
+>>>>>>> 1c50460160f44d396574c5e5a28bccfda6a0f12c
 import { DAI, USDC_MAINNET, WBTC } from 'constants/tokens'
 import * as mockJSBI from 'jsbi'
+import { mocked } from 'test-utils/mocked'
 import { render } from 'test-utils/render'
 
 import CurrencyList from '.'
@@ -42,6 +48,7 @@ it('renders loading rows when isLoading is true', () => {
       isLoading={true}
       searchQuery=""
       isAddressSearch=""
+      balances={{}}
     />
   )
   expect(component.findByTestId('loading-rows')).toBeTruthy()
@@ -61,9 +68,37 @@ it('renders currency rows correctly when currencies list is non-empty', () => {
       isLoading={false}
       searchQuery=""
       isAddressSearch=""
+      balances={{}}
     />
   )
   expect(screen.getByText('Wrapped BTC')).toBeInTheDocument()
   expect(screen.getByText('DAI')).toBeInTheDocument()
   expect(screen.getByText('USDC')).toBeInTheDocument()
+})
+
+it('renders currency rows correctly with balances', () => {
+  mocked(useWeb3React).mockReturnValue({
+    account: '0x52270d8234b864dcAC9947f510CE9275A8a116Db',
+    isActive: true,
+  } as ReturnType<typeof useWeb3React>)
+  render(
+    <CurrencyList
+      height={10}
+      currencies={[DAI, USDC_MAINNET, WBTC]}
+      otherListTokens={[]}
+      selectedCurrency={null}
+      onCurrencySelect={noOp}
+      isLoading={false}
+      searchQuery=""
+      isAddressSearch=""
+      showCurrencyAmount
+      balances={{
+        [DAI.address.toLowerCase()]: { usdValue: 2, balance: 2 },
+      }}
+    />
+  )
+  expect(screen.getByText('Wrapped BTC')).toBeInTheDocument()
+  expect(screen.getByText('DAI')).toBeInTheDocument()
+  expect(screen.getByText('USDC')).toBeInTheDocument()
+  expect(screen.getByText('2')).toBeInTheDocument()
 })
