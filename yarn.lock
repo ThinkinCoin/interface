@@ -5241,11 +5241,6 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.4.3.tgz#af975e367743fa91989cd666666aec31a8f50591"
   integrity sha512-kCUc5MEwaEMakkO5x7aoD+DLi02ehmEM2QCGWvNqAS1dV/fAvORWEjnjsEIvml59M7Y5kCkWN6fCCyPOe8OL6Q==
 
-"@thinkincoin-libs/default-token-list@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/default-token-list/-/default-token-list-1.0.0.tgz#952d81aba391fb899eb6a8da2372a3cd702fb2ed"
-  integrity sha512-U/Trp1vPHRSisAFsPrXw9Mm/hjEjCUmYh0VesdonmpRiXRJJbwiat63QhmY/GPoteeW3RMSdxHfzrsO1FFgTxA==
-
 "@thinkincoin-libs/permit2-sdk@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@thinkincoin-libs/permit2-sdk/-/permit2-sdk-1.2.0.tgz#28abf0254875082a0ef3e2ec70f3c2035e24fb5f"
