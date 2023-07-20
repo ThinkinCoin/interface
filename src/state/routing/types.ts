@@ -83,6 +83,7 @@ export interface ClassicQuoteData {
   routeString: string
 }
 
+<<<<<<< HEAD
 type URADutchOrderQuoteResponse = {
   routing: URAQuoteType.DUTCH_LIMIT
   quote: {
@@ -104,7 +105,20 @@ export type URAQuoteResponse = URAClassicQuoteResponse | URADutchOrderQuoteRespo
 
 export function isClassicQuoteResponse(data: URAQuoteResponse): data is URAClassicQuoteResponse {
   return data.routing === URAQuoteType.CLASSIC
+=======
+export type QuoteDataV2 = {
+  routing: RouterPreference.API
+  quote: QuoteData
 }
+
+/* old QuoteData
+
+export type QuoteReponse = {
+  routing: RouterPreference.API
+  quote: QuoteData
+>>>>>>> refs/remotes/origin/dev
+}
+*/
 
 export enum TradeFillType {
   Classic = 'classic', // Uniswap V1, V2, and V3 trades with on-chain routes

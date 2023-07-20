@@ -38,6 +38,9 @@ export enum RouterPreference {
 // internally for token -> USDC trades to get a USD value.
 export const INTERNAL_ROUTER_PREFERENCE_PRICE = 'price' as const
 
+const API_QUERY_PARAMS = {
+  protocols: 'v2,v3,mixed',
+}
 const CLIENT_PARAMS = {
   protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
 }
