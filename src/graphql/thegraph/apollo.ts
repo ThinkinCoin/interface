@@ -11,7 +11,7 @@ const CHAIN_SUBGRAPH_URL: Record<number, string> = {
   [ChainId.CELO]: 'https://api.thegraph.com/subgraphs/name/jesse-sawa/uniswap-celo',
   [ChainId.BNB]: 'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-bsc',
   [ChainId.AVALANCHE]: 'https://api.thegraph.com/subgraphs/name/lynnshaoyu/uniswap-v3-avax',
-  [ChainId.HARMONY]: 'https://api.thegraph.com/subgraphs/name/potvik/uniswap-v3-harmony',
+  [ChainId.HARMONY]: 'https://api.thegraph.com/subgraphs/name/thinkincoin/harmony-v3-subgraph',
   
 }
 

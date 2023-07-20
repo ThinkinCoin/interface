@@ -76,10 +76,18 @@ export interface QuoteData {
   routeString: string
 }
 
+export type QuoteDataV2 = {
+  routing: RouterPreference.API
+  quote: QuoteData
+}
+
+/* old QuoteData
+
 export type QuoteReponse = {
   routing: RouterPreference.API
   quote: QuoteData
 }
+*/
 
 export class ClassicTrade<
   TInput extends Currency,
