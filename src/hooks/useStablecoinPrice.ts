@@ -10,10 +10,11 @@ import {
   CUSD_CELO,
   DAI_OPTIMISM,
   USDC_AVALANCHE,
-  USDC_HARMONY,
+  USDT_HARMONY,
   USDC_MAINNET,
   USDC_POLYGON,
   USDT_BSC,
+  
 } from '../constants/tokens'
 
 // Stablecoin amounts used when calculating spot price for a given currency.
@@ -26,7 +27,7 @@ const STABLECOIN_AMOUNT_OUT: { [chainId: number]: CurrencyAmount<Token> } = {
   [ChainId.CELO]: CurrencyAmount.fromRawAmount(CUSD_CELO, 10_000e18),
   [ChainId.BNB]: CurrencyAmount.fromRawAmount(USDT_BSC, 100e18),
   [ChainId.AVALANCHE]: CurrencyAmount.fromRawAmount(USDC_AVALANCHE, 10_000e6),
-  [ChainId.HARMONY]: CurrencyAmount.fromRawAmount(USDC_HARMONY, 10_000e6),
+  [ChainId.HARMONY]: CurrencyAmount.fromRawAmount(USDT_HARMONY, 10_000e6),
 }
 
 /**
@@ -40,6 +41,7 @@ export default function useStablecoinPrice(currency?: Currency): Price<Currency,
 
   const { trade } = useRoutingAPITrade(TradeType.EXACT_OUTPUT, amountOut, currency, INTERNAL_ROUTER_PREFERENCE_PRICE)
   const price = useMemo(() => {
+    console.log(333, currency, stablecoin, trade);
     if (!currency || !stablecoin) {
       return undefined
     }
