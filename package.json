@@ -168,7 +168,7 @@
     "@sentry/tracing": "^7.45.0",
     "@sentry/types": "^7.45.0",
     "@sentry-internal/tracing": "^7.45.0",
-    "@thinkincoin-libs/default-token-list": "^1.0.3",
+    "@thinkincoin-libs/default-token-list": "^1.0.0",
     "@thinkincoin/sdk-core": "^1.1.0",
     "@thinkincoin-libs/uniswap-v2-sdk": "^3.1.0",
     "@thinkincoin-libs/uniswap-v3-sdk": "^3.10.0",
