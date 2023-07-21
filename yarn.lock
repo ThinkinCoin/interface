@@ -6455,8 +6455,8 @@
     toformat "^2.0.0"
 
 "@uniswap/smart-order-router@3.12.1":
-  version "3.13.5"
-  resolved "https://registry.yarnpkg.com/@uniswap/smart-order-router/-/smart-order-router-3.12.1.tgz#a6db511b46db5716aa9002060992f2326682d7a5"
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/@uniswap/smart-order-router/-/smart-order-router-3.12.1.tgz"
   dependencies:
     "@thinkincoin-libs/default-token-list" "^1.0.0"
     "@thinkincoin-libs/permit2-sdk" "^1.2.0"
