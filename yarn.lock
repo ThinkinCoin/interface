@@ -1612,6 +1612,11 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
+"@danieldietrich/copy@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@danieldietrich/copy/-/copy-0.4.2.tgz#c1cabfa499d8b473ba95413c446c1c1efae64d24"
+  integrity sha512-ZVNZIrgb2KeomfNahP77rL445ho6aQj0HHqU6hNlQ61o4rhvca+NS+ePj0d82zQDq2UPk1mjVZBTXgP+ErsDgw==
+
 "@emotion/cache@^10.0.27":
   version "10.0.29"
   resolved "https://registry.npmjs.org/@emotion/cache/-/cache-10.0.29.tgz"
@@ -5241,6 +5246,11 @@
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.4.3.tgz#af975e367743fa91989cd666666aec31a8f50591"
   integrity sha512-kCUc5MEwaEMakkO5x7aoD+DLi02ehmEM2QCGWvNqAS1dV/fAvORWEjnjsEIvml59M7Y5kCkWN6fCCyPOe8OL6Q==
 
+"@thinkincoin-libs/default-token-list@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/default-token-list/-/default-token-list-1.0.0.tgz#9dc34a3d682238cc838a263455c69d2ecebb7aca"
+  integrity sha512-+MQxBpKMzpETNKpacKtREKTx7yc6eR/cYjTjr+hoF5n/txSjrMZxXhuNRuE0mL+bdzfU+bvI3woO1Hh2w6iBGA==
+
 "@thinkincoin-libs/permit2-sdk@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@thinkincoin-libs/permit2-sdk/-/permit2-sdk-1.2.0.tgz#28abf0254875082a0ef3e2ec70f3c2035e24fb5f"
@@ -5261,47 +5271,47 @@
     dotenv "^14.2.0"
     hardhat-watcher "^2.1.1"
 
-"@thinkincoin-libs/uniswap-v2-sdk@^3.0.8", "@thinkincoin-libs/uniswap-v2-sdk@^3.0.9":
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/uniswap-v2-sdk/-/uniswap-v2-sdk-3.0.9.tgz#42960b31eceb7438b7b0847ba3c188d2c04d36f9"
-  integrity sha512-2kQH5/JbIj7i/yn+qsZurVRs4L8ef8/dxTTRHWeedeHT8JYf8HK75GGoz22/ucNQlYojVoL8/PZLdw3GjP56XA==
+"@thinkincoin-libs/uniswap-v2-sdk@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/uniswap-v2-sdk/-/uniswap-v2-sdk-3.1.0.tgz#5564e3e2af401982feee6fb1229ab5919fd51eeb"
+  integrity sha512-22b3+lebkGsQaGVKraK5sOTnc0+8eiPFA+XrctVajvvCDVenNTSr7Xn7n94dkkrSY+52ADC/DjpST/4xRnKpPA==
   dependencies:
     "@ethersproject/address" "^5.0.0"
     "@ethersproject/solidity" "^5.0.0"
-    "@thinkincoin/sdk-core" "^1.0.0"
+    "@thinkincoin/sdk-core" "^1.1.0"
     "@uniswap/v2-core" "^1.0.1"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
 
-"@thinkincoin-libs/uniswap-v3-sdk@^3.9.7", "@thinkincoin-libs/uniswap-v3-sdk@^3.9.9":
-  version "3.9.9"
-  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/uniswap-v3-sdk/-/uniswap-v3-sdk-3.9.9.tgz#dab2c0809c6137fefb9e75f1c2402dadb6d53ae6"
-  integrity sha512-bUA0zw78e+uVQGMGbK5xzLMNUdRFst3dd9VtXSEshEo6wdsmocDtLS4b73weqv/zXVpqXAu0YW2LrZdtCznQFw==
+"@thinkincoin-libs/uniswap-v3-sdk@^3.10.0":
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/uniswap-v3-sdk/-/uniswap-v3-sdk-3.10.0.tgz#fccec5d9d2956c9bf50107ce7c6548dd60623878"
+  integrity sha512-jk4OJFnwLPvhWaAlN/+zdvp67NP+rQUcYxNUzD8xW2cwKPPILft6sk1l2D6s0njjv4W9ZG6zIPE3FWfvVaR1tg==
   dependencies:
     "@ethersproject/abi" "^5.0.12"
     "@ethersproject/solidity" "^5.0.9"
     "@thinkincoin-libs/swap-router-contracts" "^1.0.1"
-    "@thinkincoin/sdk-core" "^1.0.0"
+    "@thinkincoin/sdk-core" "^1.1.0"
     "@uniswap/v3-periphery" "^1.1.1"
     "@uniswap/v3-staker" "1.0.0"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
 
-"@thinkincoin/router-sdk@^1.4.2":
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/@thinkincoin/router-sdk/-/router-sdk-1.4.2.tgz#cd4a022dd1946b80639b92ff854d70ffdf185234"
-  integrity sha512-vVKMv9PBRWPIaqLabDr0vv830JrUmIknog5A/7W2OB7WRGwWa45OxPFZfHQ3NcVpusDTuhPUoOsq2tWGuE+I6g==
+"@thinkincoin/router-sdk@^1.4.3":
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/@thinkincoin/router-sdk/-/router-sdk-1.4.3.tgz#efa241fd27df95ff5638d37b8863065b32379eae"
+  integrity sha512-OrTjdA3TMaJMqLyR7shOKDszZheH4OhBwO+HxxQwDmg9mrgktoIstEc/9cXejIdLn72Q3cRO+0WxoIjTY4x5ZQ==
   dependencies:
     "@ethersproject/abi" "^5.5.0"
     "@thinkincoin-libs/swap-router-contracts" "1.0.1"
-    "@thinkincoin-libs/uniswap-v2-sdk" "^3.0.9"
-    "@thinkincoin-libs/uniswap-v3-sdk" "^3.9.9"
-    "@thinkincoin/sdk-core" "^1.0.0"
+    "@thinkincoin-libs/uniswap-v2-sdk" "^3.1.0"
+    "@thinkincoin-libs/uniswap-v3-sdk" "^3.10.0"
+    "@thinkincoin/sdk-core" "^1.1.0"
 
-"@thinkincoin/sdk-core@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@thinkincoin/sdk-core/-/sdk-core-1.0.0.tgz#d5c6c754def40c8cf6fdaeb836109799dd6c2bc6"
-  integrity sha512-hA2eUNgR+CTsdDieB3K7cDIpUugi7B2dTQ2EYD4UEp673NgGrJgoyattV5Fz7F6AB/70WDypBYgdxgUCfcKZzg==
+"@thinkincoin/sdk-core@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@thinkincoin/sdk-core/-/sdk-core-1.1.0.tgz#a387e3961cb3ba5d0dea9a48351138a4e1e5dd87"
+  integrity sha512-aMKkbZ08yhh7AIilYhMxE11FGc22Arznn5ZMIEB2fYju8mc6roZskUiXNWXM+FMgrKVB1U8OKqf49DrXo6emXw==
   dependencies:
     "@ethersproject/address" "^5.0.2"
     big.js "^5.2.2"
@@ -5310,16 +5320,16 @@
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
-"@thinkincoin/universal-router-sdk@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@thinkincoin/universal-router-sdk/-/universal-router-sdk-1.0.7.tgz#0bdc0f4232212b3fe8038049f8d45253211aab6b"
-  integrity sha512-ZuPZzJslmhnUTxCwX/4S9WWfNxiE458/CK5C2Ju+5sVjRWZHIVNhVnglz2U2OEt/utM3yqQDkO9OtCnjf/f7UQ==
+"@thinkincoin/universal-router-sdk@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@thinkincoin/universal-router-sdk/-/universal-router-sdk-1.0.8.tgz#6df7672f808f8fe8e6a3ddd78de3fae31d5e8af5"
+  integrity sha512-IgT/KqsNfstQ20FIPM7Gh9Eq4PS2GhicNB2VjwHf5iAt28WAiQyNxpU8QKNFFlffAm2/ATZcWHQbMv2dC6Sclg==
   dependencies:
     "@thinkincoin-libs/permit2-sdk" "^1.2.0"
-    "@thinkincoin-libs/uniswap-v2-sdk" "^3.0.8"
-    "@thinkincoin-libs/uniswap-v3-sdk" "^3.9.7"
-    "@thinkincoin/sdk-core" "^1.0.0"
-    "@uniswap/router-sdk" "^1.6.0"
+    "@thinkincoin-libs/uniswap-v2-sdk" "^3.1.0"
+    "@thinkincoin-libs/uniswap-v3-sdk" "^3.10.0"
+    "@thinkincoin/router-sdk" "^1.4.3"
+    "@thinkincoin/sdk-core" "^1.1.0"
     "@uniswap/universal-router" "1.4.3"
     bignumber.js "^9.0.2"
     ethers "^5.3.1"
@@ -6346,8 +6356,6 @@
   resolved "https://registry.yarnpkg.com/@uniswap/conedison/-/conedison-1.8.0.tgz#60fcfa1475780350a719510ccee1f6a49f8c5cf8"
   integrity sha512-EeC37bbrd4sJnqW3TxNhExdWUBvzyJDhbTXcbDzFdBh/bg5sOCu1NbYJEnrjwBHEfewc9nF2OjEzejJFyJUx9A==
 
-
-
 "@uniswap/eslint-config@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@uniswap/eslint-config/-/eslint-config-1.2.0.tgz#1d9565c5ae5982fc0e3585b272e15b89b64b2db0"
@@ -6408,7 +6416,7 @@
   resolved "https://registry.yarnpkg.com/@uniswap/redux-multicall/-/redux-multicall-1.1.8.tgz#9cc5090305b10df68fb6162eb1ba7c2c762f5e7f"
   integrity sha512-LttOBVJuoRNC6N4MHsb5dF2GszLsj1ddPKKccEw1XOX17bGrFdm2A6GwKgES+v+Hj3lluDbQL6atcQtymP21iw==
 
-"@uniswap/router-sdk@^1.3.0", "@uniswap/router-sdk@^1.4.0":
+"@uniswap/router-sdk@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@uniswap/router-sdk/-/router-sdk-1.4.0.tgz#0e8d49f37b36e74b6a70ec257ec0561bf1f249c3"
   integrity sha512-GyUX8x+hnwnh89DHyA/yKWUwhU3Eukx3B76vfvMMWfr++GA4CW6PzT5j4JgNZDrsBTOSJWxTdU5YbgOuwU2XGg==
@@ -6418,17 +6426,6 @@
     "@uniswap/swap-router-contracts" "1.1.0"
     "@uniswap/v2-sdk" "^3.0.1"
     "@uniswap/v3-sdk" "^3.8.3"
-
-"@uniswap/router-sdk@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/router-sdk/-/router-sdk-1.6.0.tgz#2f51dbba1b01467244b59500ed0da8aa84323f8c"
-  integrity sha512-onpAzcvEnrsm8tUtu49IrR9EP3n9j0IDpGc0Ee3FDDkVgXrp9cIrAADC+yb56vgLtJFnshbhyIdjXLMIzWe0Gw==
-  dependencies:
-    "@ethersproject/abi" "^5.5.0"
-    "@uniswap/sdk-core" "^4"
-    "@uniswap/swap-router-contracts" "1.1.0"
-    "@uniswap/v2-sdk" "^3.2.0"
-    "@uniswap/v3-sdk" "^3.10.0"
 
 "@uniswap/sdk-core@^3.0.0-alpha.3", "@uniswap/sdk-core@^3.0.1", "@uniswap/sdk-core@^3.1.0":
   version "3.2.6"
@@ -6442,31 +6439,19 @@
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
-"@uniswap/sdk-core@^4", "@uniswap/sdk-core@^4.0.2":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@uniswap/sdk-core/-/sdk-core-4.0.3.tgz#aa5a17c5c61f4ef9b7e042fa8798fa51951d7eab"
-  integrity sha512-OXO1BdwQ29LW1TEJyCw5imqIC8HHSDd8d9kGQd+AXMzKbMYeMzxTRZn2U/LboYHr9XnE2wgFO4LnrXGIUyZ7/g==
-  dependencies:
-    "@ethersproject/address" "^5.0.2"
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
-    tiny-invariant "^1.1.0"
-    toformat "^2.0.0"
-
 "@uniswap/smart-order-router@3.12.1":
   version "3.12.1"
   resolved "https://registry.yarnpkg.com/@uniswap/smart-order-router/-/smart-order-router-3.12.1.tgz"
   dependencies:
-    "@thinkincoin-libs/default-token-list" "^1.0.0"
-    "@thinkincoin-libs/permit2-sdk" "^1.2.0"
-    "@thinkincoin/router-sdk" "^1.4.3"
-    "@thinkincoin-libs/swap-router-contracts" "^1.0.1"
-    "@uniswap/token-lists" "^1.0.0-beta.31"
+    "@uniswap/default-token-list" "^2.0.0"
+    "@uniswap/permit2-sdk" "^1.2.0"
+    "@uniswap/router-sdk" "^1.3.0"
+    "@uniswap/swap-router-contracts" "^1.3.0"
+    "@uniswap/token-lists" "^1.0.0-beta.25"
     "@uniswap/universal-router" "^1.0.1"
-    "@thinkincoin/universal-router-sdk" "^1.0.8"
-    "@thinkincoin-libs/uniswap-v2-sdk" "^3.1.0"
-    "@thinkincoin-libs/uniswap-v3-sdk" "^3.10.0"
+    "@uniswap/universal-router-sdk" "^1.3.9"
+    "@uniswap/v2-sdk" "^3.0.1"
+    "@uniswap/v3-sdk" "^3.7.0"
     async-retry "^1.3.1"
     await-timeout "^1.1.1"
     axios "^0.21.1"
@@ -6491,7 +6476,7 @@
     "@uniswap/v3-periphery" "1.3.0"
     hardhat-watcher "^2.1.1"
 
-"@uniswap/swap-router-contracts@^1.2.1", "@uniswap/swap-router-contracts@^1.3.0":
+"@uniswap/swap-router-contracts@^1.2.1":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@uniswap/swap-router-contracts/-/swap-router-contracts-1.3.0.tgz#8d555ca6d74b888d6e02a26ebb806ce315605f1f"
   integrity sha512-iKvCuRkHXEe0EMjOf8HFUISTIhlxI57kKFllf3C3PUIE0HmwxrayyoflwAz5u/TRsFGYqJ9IjX2UgzLCsrNa5A==
@@ -6508,7 +6493,7 @@
   resolved "https://registry.yarnpkg.com/@uniswap/token-lists/-/token-lists-1.0.0-beta.33.tgz#966ba96c9ccc8f0e9e09809890b438203f2b1911"
   integrity sha512-JQkXcpRI3jFG8y3/CGC4TS8NkDgcxXaOQuYW8Qdvd6DcDiIyg2vVYCG9igFEzF0G6UvxgHkBKC7cWCgzZNYvQg==
 
-"@uniswap/universal-router-sdk@^1.3.8", "@uniswap/universal-router-sdk@^1.3.9":
+"@uniswap/universal-router-sdk@^1.3.8":
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/@uniswap/universal-router-sdk/-/universal-router-sdk-1.5.3.tgz#7397250f9569ed0b29d94e2d00831e8dc0cccb46"
   integrity sha512-C6JuOY9JxHjN5Eec67CIMFm3SAP4uqiGFnaUzBQM30HfWUBOdc8NJZ+5v5UIluydKu4VepB0xH3bnQ6tgsCx2Q==
@@ -6560,17 +6545,6 @@
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
 
-"@uniswap/v2-sdk@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/v2-sdk/-/v2-sdk-3.2.0.tgz#2b872cb83ac60ba66dc1d11acd7795b67ca8ceb1"
-  integrity sha512-kBOJ6Iwtgb/2LckLMIzfbPM37/ll0F+33lzPmZlqoJwsT0F2hZdVfAhclufZcSb0Y9RdLXl6372CZJ+lhx8cUQ==
-  dependencies:
-    "@ethersproject/address" "^5.0.0"
-    "@ethersproject/solidity" "^5.0.0"
-    "@uniswap/sdk-core" "^4.0.2"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-
 "@uniswap/v3-core@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@uniswap/v3-core/-/v3-core-1.0.0.tgz"
@@ -6600,21 +6574,7 @@
     base64-sol "1.0.1"
     hardhat-watcher "^2.1.1"
 
-"@uniswap/v3-sdk@^3.10.0":
-  version "3.10.0"
-  resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.10.0.tgz#962c9e598250ced00702d944783c2d9ee3fa12f6"
-  integrity sha512-sbmSA1O+Ct960r66Ie/c1rOmVadpwRu8nQ79pGICv0pZJdnFIQ/SReG3F+iC2C2UNNjNP6aC2WDUggXrjyrgnA==
-  dependencies:
-    "@ethersproject/abi" "^5.0.12"
-    "@ethersproject/solidity" "^5.0.9"
-    "@uniswap/sdk-core" "^4"
-    "@uniswap/swap-router-contracts" "^1.2.1"
-    "@uniswap/v3-periphery" "^1.1.1"
-    "@uniswap/v3-staker" "1.0.0"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-
-"@uniswap/v3-sdk@^3.7.0", "@uniswap/v3-sdk@^3.8.3", "@uniswap/v3-sdk@^3.9.0":
+"@uniswap/v3-sdk@^3.8.3", "@uniswap/v3-sdk@^3.9.0":
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@uniswap/v3-sdk/-/v3-sdk-3.9.0.tgz#de93fa19f89c29d460996aa4d0b4bb6531641105"
   integrity sha512-LuoF3UcY1DxSAQKJ3E4/1Eq4HaNp+x+7q9mvbpiu+/PBj+O1DjLforAMrKxu+RsA0aarmZtz7yBnAPy+akgfgQ==
@@ -9031,7 +8991,7 @@ ci-info@^2.0.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
   integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
 
-ci-info@^3.1.1, ci-info@^3.2.0:
+ci-info@^3.1.1, ci-info@^3.2.0, ci-info@^3.7.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-3.8.0.tgz#81408265a5380c929f0bc665d62256628ce9ef91"
   integrity sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==
@@ -12071,6 +12031,13 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
+find-yarn-workspace-root@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/find-yarn-workspace-root/-/find-yarn-workspace-root-2.0.0.tgz#f47fb8d239c900eb78179aa81b66673eac88f7bd"
+  integrity sha512-1IMnbjt4KzsQfnhnzNd8wUEgXZ44IzZaZmnLYx7D5FZlaHt2gW20Cri8Q+E/t5tIj4+epTBub+2Zxu/vNILzqQ==
+  dependencies:
+    micromatch "^4.0.2"
+
 flat-cache@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.0.4.tgz#61b0338302b2fe9f957dcc32fc2a87f1c3048b11"
@@ -12454,6 +12421,17 @@ glob@^6.0.1:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
+glob@^8.0.3:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-8.1.0.tgz#d388f656593ef708ee3e34640fdfb99a9fd1c33e"
+  integrity sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^5.0.1"
+    once "^1.3.0"
+
 global-dirs@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/global-dirs/-/global-dirs-3.0.0.tgz#70a76fe84ea315ab37b1f5576cbde7d48ef72686"
@@ -12567,7 +12545,7 @@ gopd@^1.0.1:
   dependencies:
     get-intrinsic "^1.1.3"
 
-graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.4, graceful-fs@^4.2.6, graceful-fs@^4.2.9:
+graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.2, graceful-fs@^4.1.6, graceful-fs@^4.1.9, graceful-fs@^4.2.0, graceful-fs@^4.2.4, graceful-fs@^4.2.6, graceful-fs@^4.2.9:
   version "4.2.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
@@ -15015,6 +14993,13 @@ kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
+klaw-sync@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/klaw-sync/-/klaw-sync-6.0.0.tgz#1fd2cfd56ebb6250181114f0a581167099c2b28c"
+  integrity sha512-nIeuVSzdCCs6TDPTqI8w1Yre34sSq7AkZ4B3sfOBbI2CgVSB4Du4aLQijFU2+lhAFCwt9+42Hel6lQNIv6AntQ==
+  dependencies:
+    graceful-fs "^4.1.11"
+
 klaw@^1.0.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/klaw/-/klaw-1.3.1.tgz#4088433b46b3b1ba259d78785d8e96f73ba02439"
@@ -16297,7 +16282,7 @@ onetime@^6.0.0:
   dependencies:
     mimic-fn "^4.0.0"
 
-open@^7.3.1:
+open@^7.3.1, open@^7.4.2:
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/open/-/open-7.4.2.tgz#b8147e26dcf3e426316c730089fd71edd29c2321"
   integrity sha512-MVHddDVweXZF3awtlAS+6pgKLlm/JgxZ90+/NBurBoQctVOOB/zDdVjcyPzQ+0laDGbsWgrRkflI65sQeOgT9Q==
@@ -16588,6 +16573,26 @@ pascal-case@^3.1.2:
   dependencies:
     no-case "^3.0.4"
     tslib "^2.0.3"
+
+patch-package@^7.0.0:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/patch-package/-/patch-package-7.0.2.tgz#c01589bb6964854b5210506a5845d47900641f5a"
+  integrity sha512-PMYfL8LXxGIRmxXLqlEaBxzKPu7/SdP13ld6GSfAUJUZRmBDPp8chZs0dpzaAFn9TSPnFiMwkC6PJt6pBiAl8Q==
+  dependencies:
+    "@yarnpkg/lockfile" "^1.1.0"
+    chalk "^4.1.2"
+    ci-info "^3.7.0"
+    cross-spawn "^7.0.3"
+    find-yarn-workspace-root "^2.0.0"
+    fs-extra "^9.0.0"
+    klaw-sync "^6.0.0"
+    minimist "^1.2.6"
+    open "^7.4.2"
+    rimraf "^2.6.3"
+    semver "^7.5.3"
+    slash "^2.0.0"
+    tmp "^0.0.33"
+    yaml "^2.2.2"
 
 path-browserify@^1.0.1:
   version "1.0.1"
@@ -17383,6 +17388,17 @@ postcss@^8.3.5, postcss@^8.4.19, postcss@^8.4.21, postcss@^8.4.23, postcss@^8.4.
     nanoid "^3.3.6"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
+
+postinstall@^0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/postinstall/-/postinstall-0.8.0.tgz#4acd1d9113831055a35e8670cefb2bf57aa7f87b"
+  integrity sha512-onh5cnUw4ue+iBzwoyHZNfih1iopqm5abfc/0vK/A9QyYVPxCbLW0DxwrRpHFZ2/Fs5Uo7j4TiaVDNWriq0HIg==
+  dependencies:
+    "@danieldietrich/copy" "^0.4.2"
+    glob "^8.0.3"
+    minimist "^1.2.6"
+    resolve-from "^5.0.0"
+    resolve-pkg "^2.0.0"
 
 preact@^10.5.9:
   version "10.5.13"
@@ -18403,6 +18419,13 @@ resolve-from@^4.0.0:
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-4.0.0.tgz#4abcd852ad32dd7baabfe9b40e00a36db5f392e6"
   integrity sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==
 
+resolve-pkg@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/resolve-pkg/-/resolve-pkg-2.0.0.tgz#ac06991418a7623edc119084edc98b0e6bf05a41"
+  integrity sha512-+1lzwXehGCXSeryaISr6WujZzowloigEofRB+dj75y9RRa/obVcYgbHJd53tdYw8pvZj8GojXaaENws8Ktw/hQ==
+  dependencies:
+    resolve-from "^5.0.0"
+
 resolve-url-loader@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/resolve-url-loader/-/resolve-url-loader-4.0.0.tgz#d50d4ddc746bb10468443167acf800dcd6c3ad57"
@@ -18484,7 +18507,7 @@ rimraf@3.0.2, rimraf@^3.0.0, rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
-rimraf@^2.2.8:
+rimraf@^2.2.8, rimraf@^2.6.3:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
   integrity sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
@@ -18999,6 +19022,11 @@ sisteransi@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
+
+slash@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
+  integrity sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==
 
 slash@^3.0.0:
   version "3.0.0"
@@ -21401,6 +21429,11 @@ yaml@^2.1.1:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.2.2.tgz#ec551ef37326e6d42872dad1970300f8eb83a073"
   integrity sha512-CBKFWExMn46Foo4cldiChEzn7S7SRV+wqiluAb6xmueD/fGyRHIhX8m14vVGgeFWjN540nKCNVj6P21eQjgTuA==
+
+yaml@^2.2.2:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-2.3.1.tgz#02fe0975d23cd441242aa7204e09fc28ac2ac33b"
+  integrity sha512-2eHWfjaoXgTBC2jNM1LRef62VQa0umtvRiDSk6HSzW7RvS5YtkabJrwYLLEKWBc8a5U2PTSCs+dJjUTJdlHsWQ==
 
 yargs-parser@20.2.4:
   version "20.2.4"
