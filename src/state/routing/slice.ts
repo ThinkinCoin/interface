@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { Protocol } from '@thinkincoin/router-sdk'
 import { TradeType } from '@thinkincoin/sdk-core'
-import { ChainId } from '@thinkincoin/smart-order-router'
+import { ChainId } from '@unisap/smart-order-router'
 import { getClientSideQuote } from 'lib/hooks/routing/clientSideSmartOrderRouter'
 import ms from 'ms.macro'
 import { trace } from 'tracing/trace'
