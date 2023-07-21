@@ -57,7 +57,7 @@ index 4841993..6b8608b 100644
 +exports.WNATIVE_ON = exports.USDC_ON = exports.USDT_ON = exports.DAI_ON = exports.TokenProvider = exports.ARB_DAI_HARMONY = exports.ARB_USDT_HARMONY = exports.ARB_USDC_HARMONY = exports.USDC_HARMONY = exports.USDT_HARMONY = exports.ETH_HARMONY = exports.WBTC_HARMONY = exports.WBTC_MOONBEAM = exports.DAI_MOONBEAM = exports.WGLMR_MOONBEAM = exports.USDC_MOONBEAM = exports.WBTC_GNOSIS = exports.WXDAI_GNOSIS = exports.USDC_ETHEREUM_GNOSIS = exports.CEUR_CELO_ALFAJORES = exports.CUSD_CELO_ALFAJORES = exports.DAI_CELO_ALFAJORES = exports.CELO_ALFAJORES = exports.CEUR_CELO = exports.CUSD_CELO = exports.DAI_CELO = exports.CELO = exports.USDT_BSC = exports.USDC_BSC = exports.ETH_BSC = exports.DAI_BSC = exports.BUSD_BSC = exports.BTC_BSC = exports.WETH_POLYGON_MUMBAI = exports.DAI_POLYGON_MUMBAI = exports.USDC_POLYGON_MUMBAI = exports.WMATIC_POLYGON_MUMBAI = exports.DAI_POLYGON = exports.USDC_POLYGON = void 0;
  const abi_1 = require("@ethersproject/abi");
  const strings_1 = require("@ethersproject/strings");
- const sdk_core_1 = require("@uniswap/sdk-core");
+ const sdk_core_1 = require("@thinkincoin/sdk-core");
 @@ -106,6 +106,13 @@ exports.USDC_MOONBEAM = new sdk_core_1.Token(util_1.ChainId.MOONBEAM, '0x818ec0A
  exports.WGLMR_MOONBEAM = new sdk_core_1.Token(util_1.ChainId.MOONBEAM, '0xAcc15dC74880C9944775448304B263D191c6077F', 18, 'WGLMR', 'Wrapped GLMR');
  exports.DAI_MOONBEAM = new sdk_core_1.Token(util_1.ChainId.MOONBEAM, '0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b', 6, 'DAI', 'Dai on moonbeam bridged using Multichain');
