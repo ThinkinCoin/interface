@@ -173,7 +173,7 @@ index 12678f4..683d361 100644
      [util_1.ChainId.CELO]: 'https://api.thegraph.com/subgraphs/name/jesse-sawa/uniswap-celo',
      [util_1.ChainId.GÖRLI]: 'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-gorli',
      [util_1.ChainId.BSC]: 'https://api.thegraph.com/subgraphs/name/ilyamk/uniswap-v3---bnb-chain',
-+    [util_1.ChainId.HARMONY]: 'https://api.thegraph.com/subgraphs/name/nick8319/uniswap-v3-harmony',
++    [util_1.ChainId.HARMONY]: 'https://api.thegraph.com/subgraphs/name/thinkincoin/harmony-v3-subgraph',
  };
  const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.
  class V3SubgraphProvider {
@@ -791,7 +791,7 @@ index 48319c9..045ae46 100644
      [ChainId.CELO]: 'https://api.thegraph.com/subgraphs/name/jesse-sawa/uniswap-celo',
      [ChainId.GÖRLI]: 'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-gorli',
      [ChainId.BSC]: 'https://api.thegraph.com/subgraphs/name/ilyamk/uniswap-v3---bnb-chain',
-+    [ChainId.HARMONY]: 'https://api.thegraph.com/subgraphs/name/nick8319/uniswap-v3-harmony',
++    [ChainId.HARMONY]: 'https://api.thegraph.com/subgraphs/name/thinkincoin/harmony-v3-subgraph',
  };
  const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.
  export class V3SubgraphProvider {
