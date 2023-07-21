@@ -6,7 +6,7 @@ import { isTestEnv } from 'utils/env'
 import { updateVersion } from './global/actions'
 import { sentryEnhancer } from './logging'
 import reducer from './reducer'
-import { routingApiV2 } from './routing/slice'
+import { routingApiV2 } from './routing/v2slice'
 
 const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists']
 
