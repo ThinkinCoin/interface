@@ -296,7 +296,7 @@ export function getChainInfo(chainId: any): any {
   return undefined
 }
 
-const MAINNET_INFO = CHAIN_INFO[ChainId.MAINNET]
+const MAINNET_INFO = CHAIN_INFO[ChainId.HARMONY]
 export function getChainInfoOrDefault(chainId: number | undefined) {
   return getChainInfo(chainId) ?? MAINNET_INFO
 }
