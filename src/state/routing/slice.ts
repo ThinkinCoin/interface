@@ -1,13 +1,32 @@
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
-import { Protocol } from '@thinkincoin/router-sdk'
-import { TradeType } from '@thinkincoin/sdk-core'
-import { ChainId } from '@thinkincoin/sdk-core'
+import { Protocol } from '@uniswap/router-sdk'
+import { TradeType } from '@uniswap/sdk-core'
+import { ChainId } from '@uniswap/smart-order-router'
 import { getClientSideQuote } from 'lib/hooks/routing/clientSideSmartOrderRouter'
 import ms from 'ms.macro'
+import qs from 'qs'
 import { trace } from 'tracing/trace'
 
-import { QuoteMethod, QuoteReponse, QuoteState, TradeResult } from './types'
+import { QuoteData, TradeResult } from './types'
 import { getRouter, isExactInput, shouldUseAPIRouter, transformRoutesToTrade } from './utils'
+
+export enum RouterPreference {
+  AUTO = 'auto',
+  API = 'api',
+  CLIENT = 'client',
+}
+
+// This is excluded from `RouterPreference` enum because it's only used
+// internally for token -> USDC trades to get a USD value.
+export const INTERNAL_ROUTER_PREFERENCE_PRICE = 'price' as const
+
+// routing API quote params: https://github.com/Uniswap/routing-api/blob/main/lib/handlers/quote/schema/quote-schema.ts
+const API_QUERY_PARAMS = {
+  protocols: 'v2,v3,mixed',
+}
+const CLIENT_PARAMS = {
+  protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
+}
 
 export interface GetQuoteArgs {
   tokenInAddress: string
@@ -21,46 +40,29 @@ export interface GetQuoteArgs {
   amount: string
   routerPreference: RouterPreference | typeof INTERNAL_ROUTER_PREFERENCE_PRICE
   tradeType: TradeType
-  isRoutingAPIPrice?: boolean
 }
 
-export enum RouterPreference {
-  AUTO = 'auto',
-  API = 'api',
-  CLIENT = 'client',
+enum QuoteState {
+  SUCCESS = 'Success',
+  NOT_FOUND = 'Not found',
 }
 
-// This is excluded from `RouterPreference` enum because it's only used
-// internally for token -> USDC trades to get a USD value.
-export const INTERNAL_ROUTER_PREFERENCE_PRICE = 'price' as const
-
-const API_QUERY_PARAMS = {
-  protocols: 'v2,v3,mixed',
-}
-const CLIENT_PARAMS = {
-  protocols: [Protocol.V2, Protocol.V3, Protocol.MIXED],
-}
-
-// routing API quote query params: https://github.com/Uniswap/routing-api/blob/main/lib/handlers/quote/schema/quote-schema.ts
-const CLASSIC_SWAP_QUERY_PARAMS = {
-  ...CLIENT_PARAMS,
-  routingType: 'CLASSIC',
-}
-
-export const routingApiV2 = createApi({
-  reducerPath: 'routingApiV2',
+export const routingApi = createApi({
+  reducerPath: 'routingApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.uniswap.org/v2/',
+    baseUrl: 'https://api.uniswap.org/v1/',
   }),
   endpoints: (build) => ({
     getQuote: build.query<TradeResult, GetQuoteArgs>({
       async onQueryStarted(args: GetQuoteArgs, { queryFulfilled }) {
         trace(
-          'quote-v2',
+          'quote',
           async ({ setTraceError, setTraceStatus }) => {
             try {
               await queryFulfilled
             } catch (error: unknown) {
+              
+
               if (error && typeof error === 'object' && 'error' in error) {
                 const queryError = (error as Record<'error', FetchBaseQueryError>).error
                 if (typeof queryError.status === 'number') {
@@ -82,39 +84,27 @@ export const routingApiV2 = createApi({
           }
         )
       },
-      async queryFn(args: GetQuoteArgs, _api, _extraOptions, fetch) {
-        let fellBack = false
-        if (shouldUseAPIRouter(args)) {
-          fellBack = true
+      async queryFn(args, _api, _extraOptions, fetch) {
+        if (shouldUseAPIRouter(args.routerPreference)) {
           try {
             const { tokenInAddress, tokenInChainId, tokenOutAddress, tokenOutChainId, amount, tradeType } = args
-            const type = isExactInput(tradeType) ? 'EXACT_INPUT' : 'EXACT_OUTPUT'
-
-            const requestBody = {
+            const type = isExactInput(tradeType) ? 'exactIn' : 'exactOut'
+            const query = qs.stringify({
+              ...API_QUERY_PARAMS,
+              tokenInAddress,
               tokenInChainId,
-              tokenIn: tokenInAddress,
+              tokenOutAddress,
               tokenOutChainId,
-              tokenOut: tokenOutAddress,
               amount,
               type,
-              configs: [CLASSIC_SWAP_QUERY_PARAMS],
-            }
-
-            const response = await fetch({
-              method: 'POST',
-              url: '/quote',
-              body: JSON.stringify(requestBody),
             })
-
+            const response = await fetch(`quote?${query}`)
             if (response.error) {
               try {
                 // cast as any here because we do a runtime check on it being an object before indexing into .errorCode
                 const errorData = response.error.data as any
                 // NO_ROUTE should be treated as a valid response to prevent retries.
-                if (
-                  typeof errorData === 'object' &&
-                  (errorData?.errorCode === 'NO_ROUTE' || errorData?.detail === 'No quotes available')
-                ) {
+                if (typeof errorData === 'object' && errorData?.errorCode === 'NO_ROUTE') {
                   return { data: { state: QuoteState.NOT_FOUND } }
                 }
               } catch {
@@ -122,22 +112,20 @@ export const routingApiV2 = createApi({
               }
             }
 
-            const quoteData = response.data as QuoteReponse
-            const tradeResult = transformRoutesToTrade(args, quoteData.quote)
-
-            return { data: { ...tradeResult, method: QuoteMethod.ROUTING_API } }
+            const quoteData = response.data as QuoteData
+            const tradeResult = transformRoutesToTrade(args, quoteData)
+            return { data: tradeResult }
           } catch (error: any) {
             console.warn(
-              `GetQuote failed on API v2, falling back to client: ${error?.message ?? error?.detail ?? error}`
+              `GetQuote failed on routing API, falling back to client: ${error?.message ?? error?.detail ?? error}`
             )
           }
         }
         try {
-          const method = fellBack ? QuoteMethod.CLIENT_SIDE_FALLBACK : QuoteMethod.CLIENT_SIDE
           const router = getRouter(args.tokenInChainId)
           const quoteResult = await getClientSideQuote(args, router, CLIENT_PARAMS)
           if (quoteResult.state === QuoteState.SUCCESS) {
-            return { data: { ...transformRoutesToTrade(args, quoteResult.data), method } }
+            return { data: transformRoutesToTrade(args, quoteResult.data) }
           } else {
             return { data: quoteResult }
           }
@@ -147,8 +135,11 @@ export const routingApiV2 = createApi({
         }
       },
       keepUnusedDataFor: ms`10s`,
+      extraOptions: {
+        maxRetries: 0,
+      },
     }),
   }),
 })
 
-export const { useGetQuoteQuery } = routingApiV2
+export const { useGetQuoteQuery } = routingApi
