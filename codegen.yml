@@ -1,5 +1,5 @@
 overrideExisting: true
-schema: 'https://api.thegraph.com/subgraphs/name/thinkincoin/harmony-v3-subgraph'
+schema: 'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-subgraph/graphql'
 generates:
   ./src/graphql/thegraph/schema/schema.graphql:
     plugins:
