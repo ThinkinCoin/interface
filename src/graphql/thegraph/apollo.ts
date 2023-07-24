@@ -24,7 +24,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
   const chainId = store.getState().application.chainId
 
   operation.setContext(() => ({
-    uri: chainId && CHAIN_SUBGRAPH_URL[chainId] ? CHAIN_SUBGRAPH_URL[chainId] : CHAIN_SUBGRAPH_URL[ChainId.MAINNET],
+    uri: chainId && CHAIN_SUBGRAPH_URL[chainId] ? CHAIN_SUBGRAPH_URL[chainId] : CHAIN_SUBGRAPH_URL[ChainId.HARMONY],
   }))
 
   return forward(operation)
