@@ -11,7 +11,7 @@ const exec = promisify(child_process.exec)
 
 function fetchSchema(url, outputFile) {
   //exec(`yarn --silent get-graphql-schema --h Origin=https://app.uniswap.org ${url}`)
-  exec(`yarn --silent get-graphql-schema --h Origin=https://swap.thinkincoin.com ${url}`)
+  exec(`yarn --silent get-graphql-schema --h Origin=https://app.uniswap.org ${url}`)
     .then(({ stderr, stdout }) => {
       if (stderr) {
         throw new Error(stderr)
