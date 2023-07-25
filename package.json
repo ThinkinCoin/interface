@@ -78,7 +78,7 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1",
     "@testing-library/user-event": "^14.4.3",
-    "@thinkincoin-libs/default-token-list": "^1.0.0",
+    "@thinkincoin-libs/default-token-list": "^1.0.1",
     "@typechain/ethers-v5": "^7.0.0",
     "@types/array.prototype.flat": "^1.2.1",
     "@types/array.prototype.flatmap": "^1.2.2",
