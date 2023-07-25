@@ -29,7 +29,7 @@ export const HARMONY_TOKEN_LIST = 'https://raw.githubusercontent.com/ThinkinCoin
 export const UNSUPPORTED_LIST_URLS: string[] = [BA_LIST, UNI_UNSUPPORTED_LIST]
 
 // default lists to be 'active' aka searched across
-export const DEFAULT_ACTIVE_LIST_URLS: string[] = [UNI_LIST]
+export const DEFAULT_ACTIVE_LIST_URLS: string[] = [UNI_LIST, HARMONY_TOKEN_LIST]
 export const DEFAULT_INACTIVE_LIST_URLS: string[] = [
   UNI_EXTENDED_LIST,
   COMPOUND_LIST,
@@ -51,7 +51,7 @@ export const DEFAULT_INACTIVE_LIST_URLS: string[] = [
   CELO_LIST,
   PLASMA_BNB_LIST,
   AVALANCHE_LIST,
-  HARMONY_TOKEN_LIST,
+  
   ...UNSUPPORTED_LIST_URLS,
 ]
 
