@@ -63,12 +63,12 @@ index 4841993..6b8608b 100644
  exports.DAI_MOONBEAM = new sdk_core_1.Token(util_1.ChainId.MOONBEAM, '0x818ec0A7Fe18Ff94269904fCED6AE3DaE6d6dC0b', 6, 'DAI', 'Dai on moonbeam bridged using Multichain');
  exports.WBTC_MOONBEAM = new sdk_core_1.Token(util_1.ChainId.MOONBEAM, '0x922D641a426DcFFaeF11680e5358F34d97d112E1', 8, 'WBTC', 'Wrapped BTC bridged using Multichain');
 +exports.WBTC_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x118f50d23810c5E09Ebffb42d7D3328dbF75C2c2', 8, '1WBTC', 'Wrapped BTC');
-+exports.ETH_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x4cC435d7b9557d54d6EF02d69Bbf72634905Bf11', 18, '1ETH', 'ETH');
-+exports.USDT_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0xF2732e8048f1a411C63e2df51d08f4f52E598005', 6, '1USDT', 'Tether USD');
-+exports.USDC_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0xBC594CABd205bD993e7FfA6F3e9ceA75c1110da5', 6, '1USDC', 'USD Coin');
-+exports.ARB_USDC_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x9b5fae311A4A4b9d838f301C9c27b55d19BAa4Fb', 6, 'arbUSDC', 'USD Coin (Arb1)');
-+exports.ARB_USDT_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x2DA729BA5231d2C79290aBA4a8b85a5c94dA4724', 6, 'arbUSDT', 'Tether USD');
-+exports.ARB_DAI_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x7C07d01C9DaB5aBB09CE2b42242a7570F25fC2CC', 18, 'arbDAI', 'Dai Stablecoin');
++exports.ETH_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x4cC435d7b9557d54d6EF02d69Bbf72634905Bf11', 18, '1ETH', 'ETH (ethereum)');
++exports.USDT_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0xF2732e8048f1a411C63e2df51d08f4f52E598005', 6, '1USDT', 'Tether USD (ethereum)');
++exports.USDC_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0xBC594CABd205bD993e7FfA6F3e9ceA75c1110da5', 6, '1USDC', 'USD Coin (ethereum)');
++exports.ARB_USDC_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x9b5fae311A4A4b9d838f301C9c27b55d19BAa4Fb', 6, 'arbUSDC', 'USD Coin (arbitrum)');
++exports.ARB_USDT_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x2DA729BA5231d2C79290aBA4a8b85a5c94dA4724', 6, 'arbUSDT', 'Tether USD (arbitrum)');
++exports.ARB_DAI_HARMONY = new sdk_core_1.Token(util_1.ChainId.HARMONY, '0x7C07d01C9DaB5aBB09CE2b42242a7570F25fC2CC', 18, 'arbDAI', 'Dai Stablecoin (arbitrum)');
  class TokenProvider {
      constructor(chainId, multicall2Provider) {
          this.chainId = chainId;
