@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
 import { Protocol } from '@thinkincoin/router-sdk'
 import { TradeType } from '@thinkincoin/sdk-core'
-import { ChainId } from '@thinkincoin/sdk-core'
+import { ChainId } from '@uniswap/smart-order-router'
 import { getClientSideQuote } from 'lib/hooks/routing/clientSideSmartOrderRouter'
 import ms from 'ms.macro'
 import { trace } from 'tracing/trace'
@@ -50,7 +50,7 @@ const CLASSIC_SWAP_QUERY_PARAMS = {
 export const routingApiV2 = createApi({
   reducerPath: 'routingApiV2',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://api.uniswap.org/v2/',
+    baseUrl: 'https://25yyxm5tub.execute-api.us-east-1.amazonaws.com/prod/',
   }),
   endpoints: (build) => ({
     getQuote: build.query<TradeResult, GetQuoteArgs>({
