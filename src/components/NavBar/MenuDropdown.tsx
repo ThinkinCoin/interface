@@ -217,7 +217,7 @@ export const MenuDropdown = () => {
                     color={themeVars.colors.textSecondary}
                   />
                 </Icon>
-                <Icon href="https://twitter.com/Uniswap">
+                <Icon href="https://twitter.com/ThinkinCoin">
                   <TwitterIconMenu
                     className={styles.hover}
                     width={24}
@@ -225,7 +225,7 @@ export const MenuDropdown = () => {
                     color={themeVars.colors.textSecondary}
                   />
                 </Icon>
-                <Icon href="https://github.com/Uniswap">
+                <Icon href="https://github.com/ThinkinCoin">
                   <GithubIconMenu
                     className={styles.hover}
                     width={24}

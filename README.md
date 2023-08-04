@@ -2,10 +2,10 @@
 
 [![codecov](https://codecov.io/gh/Uniswap/interface/branch/main/graph/badge.svg?token=YVT2Y86O82)](https://codecov.io/gh/Uniswap/interface)
 
-[![Unit Tests](https://github.com/Uniswap/interface/actions/workflows/unit-tests.yaml/badge.svg)](https://github.com/Uniswap/interface/actions/workflows/unit-tests.yaml)
-[![Integration Tests](https://github.com/Uniswap/interface/actions/workflows/integration-tests.yaml/badge.svg)](https://github.com/Uniswap/interface/actions/workflows/integration-tests.yaml)
-[![Lint](https://github.com/Uniswap/interface/actions/workflows/lint.yml/badge.svg)](https://github.com/Uniswap/interface/actions/workflows/lint.yml)
-[![Release](https://github.com/Uniswap/interface/actions/workflows/release.yaml/badge.svg)](https://github.com/Uniswap/interface/actions/workflows/release.yaml)
+[![Unit Tests](https://github.com/ThinkinCoin/interface/actions/workflows/unit-tests.yaml/badge.svg)](https://github.com/ThinkinCoin/interface/actions/workflows/unit-tests.yaml)
+[![Integration Tests](https://github.com/ThinkinCoin/interface/actions/workflows/integration-tests.yaml/badge.svg)](https://github.com/ThinkinCoin/interface/actions/workflows/integration-tests.yaml)
+[![Lint](https://github.com/ThinkinCoin/interface/actions/workflows/lint.yml/badge.svg)](https://github.com/ThinkinCoin/interface/actions/workflows/lint.yml)
+[![Release](https://github.com/ThinkinCoin/interface/actions/workflows/release.yaml/badge.svg)](https://github.com/ThinkinCoin/interface/actions/workflows/release.yaml)
 [![Crowdin](https://badges.crowdin.net/uniswap-interface/localized.svg)](https://crowdin.com/project/uniswap-interface)
 
 An open source interface for Uniswap -- a protocol for decentralized exchange of Ethereum tokens.
@@ -13,10 +13,10 @@ An open source interface for Uniswap -- a protocol for decentralized exchange of
 - Website: [uniswap.org](https://uniswap.org/)
 - Interface: [app.uniswap.org](https://app.uniswap.org)
 - Docs: [uniswap.org/docs/](https://docs.uniswap.org/)
-- Twitter: [@Uniswap](https://twitter.com/Uniswap)
+- Twitter: [@Uniswap](https://twitter.com/ThinkinCoin)
 - Reddit: [/r/Uniswap](https://www.reddit.com/r/Uniswap/)
 - Email: [contact@uniswap.org](mailto:contact@uniswap.org)
-- Discord: [Uniswap](https://discord.gg/FCfyBSbCU5)
+- Discord: [Uniswap](https://discord.gg/UJxFDY4s)
 - Whitepapers:
   - [V1](https://hackmd.io/C-DvwDSfSxuh-Gd4WKE_ig)
   - [V2](https://uniswap.org/whitepaper.pdf)
@@ -25,7 +25,7 @@ An open source interface for Uniswap -- a protocol for decentralized exchange of
 ## Accessing the Uniswap Interface
 
 To access the Uniswap Interface, use an IPFS gateway link from the
-[latest release](https://github.com/Uniswap/uniswap-interface/releases/latest),
+[latest release](https://github.com/ThinkinCoin/uniswap-interface/releases/latest),
 or visit [app.uniswap.org](https://app.uniswap.org).
 
 ## Unsupported tokens
@@ -77,4 +77,4 @@ The Uniswap Interface supports swapping, adding liquidity, removing liquidity an
 ## Accessing Uniswap V1
 
 The Uniswap V1 interface for mainnet and testnets is accessible via IPFS gateways
-linked from the [v1.0.0 release](https://github.com/Uniswap/uniswap-interface/releases/tag/v1.0.0).
+linked from the [v1.0.0 release](https://github.com/ThinkinCoin/uniswap-interface/releases/tag/v1.0.0).

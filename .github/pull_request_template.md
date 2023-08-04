@@ -1,4 +1,4 @@
-<!-- Your PR title must follow conventional commits: https://github.com/Uniswap/interface#pr-title -->
+<!-- Your PR title must follow conventional commits: https://github.com/ThinkinCoin/interface#pr-title -->
 
 ## Description
 <!-- Summary of change, including motivation and context. -->
