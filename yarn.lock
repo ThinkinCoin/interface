@@ -5261,8 +5261,7 @@
 
 "@thinkincoin-libs/swap-router-contracts@1.0.1", "@thinkincoin-libs/swap-router-contracts@^1.0.1":
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/swap-router-contracts/-/swap-router-contracts-1.0.1.tgz#e7564a820a0edb768570e0323d01a564d3100516"
-  integrity sha512-uTyF5SRPGZlW1vZ9LFaFhnUG4GdLqtsM3gu9XU1dPnF9cYgIoDRrK0E40wg6OGPuIxvlT+H30I7o/TCrZoGUVQ==
+  resolved "https://registry.yarnpkg.com/@thinkincoin-libs/swap-router-contracts/-/swap-router-contracts-1.0.1.tgz"
   dependencies:
     "@openzeppelin/contracts" "3.4.2-solc-0.7"
     "@uniswap/v2-core" "1.0.1"
