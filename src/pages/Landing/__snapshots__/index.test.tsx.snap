@@ -2323,7 +2323,7 @@ exports[`disable nft on landing page does not render nft information and card 1`
             </span>
             <a
               class="c93 0 c94"
-              href="https://uniswap.org/community"
+              href="https://dao.thinkincoin.com/"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -2331,7 +2331,7 @@ exports[`disable nft on landing page does not render nft information and card 1`
             </a>
             <a
               class="c93 0 c94"
-              href="https://uniswap.org/governance"
+              href="https://develop.thinkincoin.com/"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -2339,7 +2339,7 @@ exports[`disable nft on landing page does not render nft information and card 1`
             </a>
             <a
               class="c93 0 c94"
-              href="https://uniswap.org/developers"
+              href="https://devdocs.thinkincoin.com/"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -4862,7 +4862,7 @@ exports[`disable nft on landing page renders nft information and card 1`] = `
             </span>
             <a
               class="c94 0 c95"
-              href="https://uniswap.org/community"
+              href="https://dao.thinkincoin.com/"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -4870,7 +4870,7 @@ exports[`disable nft on landing page renders nft information and card 1`] = `
             </a>
             <a
               class="c94 0 c95"
-              href="https://uniswap.org/governance"
+              href="https://develop.thinkincoin.com/"
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -4878,7 +4878,7 @@ exports[`disable nft on landing page renders nft information and card 1`] = `
             </a>
             <a
               class="c94 0 c95"
-              href="https://uniswap.org/developers"
+              href="https://devdocs.thinkincoin.com/"
               rel="noopener noreferrer"
               target="_blank"
             >

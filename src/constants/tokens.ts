@@ -347,6 +347,6 @@ export const TOKEN_SHORTHANDS: { [shorthand: string]: { [chainId in ChainId]?: s
     [ChainId.GOERLI]: USDC_GOERLI.address,
     [ChainId.SEPOLIA]: USDC_SEPOLIA.address,
     [ChainId.AVALANCHE]: USDC_AVALANCHE.address,
-    [ChainId.HARMONY]: USDC_HARMONY.address,
+    [ChainId.HARMONY]: USDT_HARMONY.address,
   },
 }
