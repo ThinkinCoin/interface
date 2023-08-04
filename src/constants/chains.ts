@@ -49,7 +49,6 @@ export const UNSUPPORTED_V2POOL_CHAIN_IDS = [
   ChainId.BNB,
   ChainId.ARBITRUM_GOERLI,
   ChainId.AVALANCHE,
-  ChainId.HARMONY,
 ] as const
 
 export const TESTNET_CHAIN_IDS = [
