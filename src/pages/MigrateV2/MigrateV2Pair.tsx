@@ -1,7 +1,7 @@
 import { Contract } from '@ethersproject/contracts'
 import type { TransactionResponse } from '@ethersproject/providers'
 import { Trans } from '@lingui/macro'
-import { CurrencyAmount, Fraction, Percent, Price, Token, V2_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
+import { CurrencyAmount, Fraction, Percent, Price, Token, V2_FACTORY_ADDRESSES, V2_CORE_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
 import { FeeAmount, Pool, Position, priceToClosestTick, TickMath } from '@thinkincoin-libs/uniswap-v3-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { sendEvent } from 'components/analytics'
@@ -126,9 +126,11 @@ function V2PairMigration({
   const { chainId, account } = useWeb3React()
   const theme = useTheme()
   const v2FactoryAddress = chainId ? V2_FACTORY_ADDRESSES[chainId] : undefined
+  const v2CoreFactoryAddress = chainId ? V2_CORE_FACTORY_ADDRESSES[chainId] : undefined
+
 
   const pairFactory = useSingleCallResult(pair, 'factory')
-  const isNotUniswap = pairFactory.result?.[0] && pairFactory.result[0] !== v2FactoryAddress
+  const isNotUniswap = pairFactory.result?.[0] && pairFactory.result[0] !== v2FactoryAddress && pairFactory.result[0] !== v2CoreFactoryAddress
 
   const deadline = useTransactionDeadline() // custom from users settings
   const blockTimestamp = useCurrentBlockTimestamp()

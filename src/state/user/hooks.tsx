@@ -1,4 +1,4 @@
-import { Percent, Token, V2_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
+import { Percent, Token, V2_FACTORY_ADDRESSES, V2_CORE_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
 import { computePairAddress, Pair } from '@thinkincoin-libs/uniswap-v2-sdk'
 import { useWeb3React } from '@web3-react/core'
 import { L2_CHAIN_IDS } from 'constants/chains'
@@ -230,7 +230,15 @@ export function useHideUniswapWalletBanner(): [boolean, () => void] {
 export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
   if (tokenA.chainId !== tokenB.chainId) throw new Error('Not matching chain IDs')
   if (tokenA.equals(tokenB)) throw new Error('Tokens cannot be equal')
-  if (!V2_FACTORY_ADDRESSES[tokenA.chainId]) throw new Error('No V2 factory address on this chain')
+ // if (!V2_FACTORY_ADDRESSES[tokenA.chainId]) throw new Error('No V2 factory address on this chain')
+  let factoryAddress;
+  if (V2_CORE_FACTORY_ADDRESSES[tokenA.chainId]) {
+    factoryAddress = V2_CORE_FACTORY_ADDRESSES[tokenA.chainId];
+  } else if (V2_FACTORY_ADDRESSES[tokenA.chainId]) {
+    factoryAddress = V2_FACTORY_ADDRESSES[tokenA.chainId];
+  } else {
+    throw new Error('No V2 factory address on this chain');
+  }
 
   return new Token(
     tokenA.chainId,

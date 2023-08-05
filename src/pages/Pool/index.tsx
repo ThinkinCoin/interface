@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro'
 import { Trace, TraceEvent } from '@uniswap/analytics'
 import { BrowserEvent, InterfaceElementName, InterfaceEventName, InterfacePageName } from '@uniswap/analytics-events'
-import { V2_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
+import { V2_FACTORY_ADDRESSES, V2_CORE_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import { useToggleAccountDrawer } from 'components/AccountDrawer'
 import { ButtonGray, ButtonPrimary, ButtonText } from 'components/Button'
@@ -226,6 +226,8 @@ export default function Pool() {
 
   const showConnectAWallet = Boolean(!account)
   const showV2Features = Boolean(V2_FACTORY_ADDRESSES[chainId])
+  const showV2CoreFeatures = Boolean(V2_CORE_FACTORY_ADDRESSES[chainId]) // Add this line to check for V2 core features
+
 
   const menuItems = [
     {
@@ -271,6 +273,20 @@ export default function Pool() {
               </ThemedText.LargeHeader>
               <ButtonRow>
                 {showV2Features && (
+                  <PoolMenu
+                    menuItems={menuItems}
+                    flyoutAlignment={FlyoutAlignment.LEFT}
+                    ToggleUI={(props: any) => (
+                      <MoreOptionsButton {...props}>
+                        <MoreOptionsText>
+                          <Trans>More</Trans>
+                          <ChevronDown size={15} />
+                        </MoreOptionsText>
+                      </MoreOptionsButton>
+                    )}
+                  />
+                )}
+                {showV2CoreFeatures && ( // Add this condition to show V2 core features menu items
                   <PoolMenu
                     menuItems={menuItems}
                     flyoutAlignment={FlyoutAlignment.LEFT}

@@ -1,7 +1,7 @@
 import { getCreate2Address } from '@ethersproject/address'
 import { keccak256, pack } from '@ethersproject/solidity'
 import { Trans } from '@lingui/macro'
-import { Token, V2_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
+import { Token, V2_FACTORY_ADDRESSES, V2_CORE_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
 import { Pair } from '@thinkincoin-libs/uniswap-v2-sdk'
 import { useWeb3React } from '@web3-react/core'
 import MigrateSushiPositionCard from 'components/PositionCard/Sushi'
@@ -55,6 +55,9 @@ export default function MigrateV2() {
 
   const v2FactoryAddress = chainId ? V2_FACTORY_ADDRESSES[chainId] : undefined
 
+  // Get V2_CORE_FACTORY_ADDRESSES based on the chainId
+  const v2CoreFactoryAddress = chainId ? V2_CORE_FACTORY_ADDRESSES[chainId] : undefined
+
   // fetch the user's balances of all tracked V2 LP tokens
   const trackedTokenPairs = useTrackedTokenPairs()
 
@@ -66,12 +69,14 @@ export default function MigrateV2() {
         const sushiLiquidityToken = chainId === 1 ? toSushiLiquidityToken(tokens) : null
         return {
           v2liquidityToken: v2FactoryAddress ? toV2LiquidityToken(tokens) : undefined,
+          v2CoreLiquidityToken: v2CoreFactoryAddress ? toV2LiquidityToken(tokens) : undefined,
           sushiLiquidityToken,
           tokens,
         }
       }),
-    [trackedTokenPairs, chainId, v2FactoryAddress]
+    [trackedTokenPairs, chainId, v2FactoryAddress, v2CoreFactoryAddress]
   )
+
 
   //  get pair liquidity token addresses for balance-fetching purposes
   const allLiquidityTokens = useMemo(() => {

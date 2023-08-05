@@ -1,5 +1,5 @@
 import { Interface } from '@ethersproject/abi'
-import { Currency, CurrencyAmount, V2_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
+import { Currency, CurrencyAmount, V2_FACTORY_ADDRESSES, V2_CORE_FACTORY_ADDRESSES } from '@thinkincoin/sdk-core'
 import IUniswapV2PairJSON from '@uniswap/v2-core/build/IUniswapV2Pair.json'
 import { computePairAddress, Pair } from '@thinkincoin-libs/uniswap-v2-sdk'
 import { useMultipleContractSingleData } from 'lib/hooks/multicall'
@@ -27,8 +27,8 @@ export function useV2Pairs(currencies: [Currency | undefined, Currency | undefin
           tokenB &&
           tokenA.chainId === tokenB.chainId &&
           !tokenA.equals(tokenB) &&
-          V2_FACTORY_ADDRESSES[tokenA.chainId]
-          ? computePairAddress({ factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId], tokenA, tokenB })
+          (V2_FACTORY_ADDRESSES[tokenA.chainId] || V2_CORE_FACTORY_ADDRESSES[tokenA.chainId]) // Use V2_FACTORY_ADDRESSES if available, otherwise fallback to V2_CORE_FACTORY_ADDRESSES
+          ? computePairAddress({ factoryAddress: V2_FACTORY_ADDRESSES[tokenA.chainId] || V2_CORE_FACTORY_ADDRESSES[tokenA.chainId], tokenA, tokenB })
           : undefined
       }),
     [tokens]
