@@ -1,8 +1,8 @@
-import { ChainId, Currency, CurrencyAmount, Price, Token, TradeType } from '@thinkincoin/sdk-core'
+import { ChainId, Currency, CurrencyAmount, Price, Token, TradeType } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
 import tryParseCurrencyAmount from 'lib/utils/tryParseCurrencyAmount'
 import { useMemo, useRef } from 'react'
-import { INTERNAL_ROUTER_PREFERENCE_PRICE } from 'state/routing/slice'
+import { INTERNAL_ROUTER_PREFERENCE_PRICE } from 'state/routing/types'
 import { useRoutingAPITrade } from 'state/routing/useRoutingAPITrade'
 
 import {
@@ -10,11 +10,10 @@ import {
   CUSD_CELO,
   DAI_OPTIMISM,
   USDC_AVALANCHE,
-  USDT_HARMONY,
+  USDC_HARMONY,
   USDC_MAINNET,
   USDC_POLYGON,
   USDT_BSC,
-  
 } from '../constants/tokens'
 
 // Stablecoin amounts used when calculating spot price for a given currency.
@@ -27,7 +26,7 @@ const STABLECOIN_AMOUNT_OUT: { [chainId: number]: CurrencyAmount<Token> } = {
   [ChainId.CELO]: CurrencyAmount.fromRawAmount(CUSD_CELO, 10_000e18),
   [ChainId.BNB]: CurrencyAmount.fromRawAmount(USDT_BSC, 100e18),
   [ChainId.AVALANCHE]: CurrencyAmount.fromRawAmount(USDC_AVALANCHE, 10_000e6),
-  [ChainId.HARMONY]: CurrencyAmount.fromRawAmount(USDT_HARMONY, 10_000e6),
+  [ChainId.HARMONY]: CurrencyAmount.fromRawAmount(USDC_HARMONY, 10_000e6),
 }
 
 /**
@@ -41,7 +40,6 @@ export default function useStablecoinPrice(currency?: Currency): Price<Currency,
 
   const { trade } = useRoutingAPITrade(TradeType.EXACT_OUTPUT, amountOut, currency, INTERNAL_ROUTER_PREFERENCE_PRICE)
   const price = useMemo(() => {
-    console.log(333, currency, stablecoin, trade);
     if (!currency || !stablecoin) {
       return undefined
     }
@@ -89,7 +87,7 @@ export function useStablecoinValue(currencyAmount: CurrencyAmount<Currency> | un
  * @param fiatValue string representation of a USD amount
  * @returns CurrencyAmount where currency is stablecoin on active chain
  */
-export function useStablecoinAmountFromFiatValue(fiatValue: string | null | undefined) {
+export function useStablecoinAmountFromFiatValue(fiatValue: number | null | undefined) {
   const { chainId } = useWeb3React()
   const stablecoin = chainId ? STABLECOIN_AMOUNT_OUT[chainId]?.currency : undefined
 
@@ -99,7 +97,7 @@ export function useStablecoinAmountFromFiatValue(fiatValue: string | null | unde
     }
 
     // trim for decimal precision when parsing
-    const parsedForDecimals = parseFloat(fiatValue).toFixed(stablecoin.decimals).toString()
+    const parsedForDecimals = fiatValue.toFixed(stablecoin.decimals).toString()
     try {
       // parse USD string into CurrencyAmount based on stablecoin decimals
       return tryParseCurrencyAmount(parsedForDecimals, stablecoin)

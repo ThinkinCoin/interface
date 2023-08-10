@@ -96,6 +96,7 @@ export class ClassicTrade<
 > extends Trade<TInput, TOutput, TTradeType> {
   gasUseEstimateUSD: string | null | undefined
   blockNumber: string | null | undefined
+  routes: any
 
   constructor({
     gasUseEstimateUSD,
