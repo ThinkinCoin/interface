@@ -4,8 +4,6 @@ import parseENSAddress from 'lib/utils/parseENSAddress'
 import uriToHttp from 'lib/utils/uriToHttp'
 import { validateTokenList } from 'utils/validateTokenList'
 
-export const DEFAULT_TOKEN_LIST = 'https://dev.swap.thinkincoin.com/thinkincoin-default.tokenlist.json'
-
 const listCache = new Map<string, TokenList>()
 
 /**

@@ -1,4 +1,4 @@
-import { ChainId } from '@thinkincoin-libs/sdk-core'
+import { ChainId } from '@uniswap/sdk-core'
 import useHttpLocations from 'hooks/useHttpLocations'
 import { useMemo } from 'react'
 import { isAddress } from 'utils'
@@ -8,10 +8,9 @@ import AvaxLogo from '../../assets/svg/avax_logo.svg'
 import BnbLogo from '../../assets/svg/bnb-logo.svg'
 import CeloLogo from '../../assets/svg/celo_logo.svg'
 import MaticLogo from '../../assets/svg/matic-token-icon.svg'
-import HarmonyLogo from '../../assets/images/harmonyLogo.png'
-import { isCelo, isHarmony, NATIVE_CHAIN_ID, nativeOnChain } from '../../constants/tokens'
+import { isCelo, NATIVE_CHAIN_ID, nativeOnChain } from '../../constants/tokens'
 
-type Network = 'ethereum' | 'arbitrum' | 'optimism' | 'polygon' | 'smartchain' | 'celo' | 'avalanchec' | 'harmony'
+type Network = 'ethereum' | 'arbitrum' | 'optimism' | 'polygon' | 'smartchain' | 'celo' | 'avalanchec' | 'base'
 
 export function chainIdToNetworkName(networkId: ChainId): Network {
   switch (networkId) {
@@ -29,8 +28,8 @@ export function chainIdToNetworkName(networkId: ChainId): Network {
       return 'celo'
     case ChainId.AVALANCHE:
       return 'avalanchec'
-    case ChainId.HARMONY:
-      return 'harmony'
+    case ChainId.BASE:
+      return 'base'
     default:
       return 'ethereum'
   }
@@ -48,8 +47,6 @@ export function getNativeLogoURI(chainId: ChainId = ChainId.MAINNET): string {
       return CeloLogo
     case ChainId.AVALANCHE:
       return AvaxLogo
-    case ChainId.HARMONY:
-      return HarmonyLogo
     default:
       return EthereumLogo
   }
@@ -57,12 +54,16 @@ export function getNativeLogoURI(chainId: ChainId = ChainId.MAINNET): string {
 
 function getTokenLogoURI(address: string, chainId: ChainId = ChainId.MAINNET): string | void {
   const networkName = chainIdToNetworkName(chainId)
-  const networksWithUrls = [ChainId.ARBITRUM_ONE, ChainId.MAINNET, ChainId.OPTIMISM, ChainId.BNB, ChainId.AVALANCHE]
+  const networksWithUrls = [
+    ChainId.ARBITRUM_ONE,
+    ChainId.MAINNET,
+    ChainId.OPTIMISM,
+    ChainId.BNB,
+    ChainId.AVALANCHE,
+    ChainId.BASE,
+  ]
   if (isCelo(chainId) && address === nativeOnChain(chainId).wrapped.address) {
     return CeloLogo
-  }
-  if (isHarmony(chainId) && address === nativeOnChain(chainId).wrapped.address) {
-    return HarmonyLogo
   }
 
   if (networksWithUrls.includes(chainId)) {

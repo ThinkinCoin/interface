@@ -1,17 +1,16 @@
-import { ChainId } from '@thinkincoin-libs/sdk-core'
+import { ChainId } from '@uniswap/sdk-core'
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
 if (typeof INFURA_KEY === 'undefined') {
   throw new Error(`REACT_APP_INFURA_KEY must be a defined environment variable`)
 }
-const QUICKNODE_RPC_URL = process.env.REACT_APP_BNB_RPC_URL
-if (typeof QUICKNODE_RPC_URL === 'undefined') {
-  throw new Error(`REACT_APP_BNB_RPC_URL must be a defined environment variable`)
+const QUICKNODE_MAINNET_RPC_URL = process.env.REACT_APP_QUICKNODE_MAINNET_RPC_URL
+if (typeof QUICKNODE_MAINNET_RPC_URL === 'undefined') {
+  throw new Error(`REACT_APP_QUICKNODE_MAINNET_RPC_URL must be a defined environment variable`)
 }
-const HARMONY_RPC_URL = 'https://api.harmony.one'
-
-if (typeof HARMONY_RPC_URL === 'undefined') {
-  throw new Error(`HARMONY_RPC_URL must be a defined environment variable`)
+const QUICKNODE_BNB_RPC_URL = process.env.REACT_APP_BNB_RPC_URL
+if (typeof QUICKNODE_BNB_RPC_URL === 'undefined') {
+  throw new Error(`REACT_APP_BNB_RPC_URL must be a defined environment variable`)
 }
 
 /**
@@ -108,20 +107,18 @@ export const FALLBACK_URLS = {
   [ChainId.AVALANCHE]: [
     // "Safe" URLs
     'https://api.avax.network/ext/bc/C/rpc',
-    'https://rpc.ankr.com/avalanche',
-    'https://avalanche.blockpi.network/v1/rpc/public',
     'https://avalanche-c-chain.publicnode.com',
-    'https://endpoints.omniatech.io/v1/avax/mainnet/public',
-    'https://ava-mainnet.public.blastapi.io/ext/bc/C/rpc',
   ],
-  [ChainId.HARMONY]: [
+  [ChainId.BASE]: [
     // "Safe" URLs
-    'https://api.harmony.one',
-    'https://api.s0.t.hmny.io',
+    'https://mainnet.base.org/',
+    'https://developer-access-mainnet.base.org/',
+    'https://base.gateway.tenderly.co',
+    'https://base.publicnode.com',
+    // "Fallback" URLs
+    'https://1rpc.io/base',
+    'https://base.meowrpc.com',
   ],
-  [ChainId.BASE_GOERLI]: [
-    'https://base-goerli.public.blastapi.io'
-  ]
 }
 
 /**
@@ -129,7 +126,11 @@ export const FALLBACK_URLS = {
  * These are the URLs used by the interface when there is not another available source of chain data.
  */
 export const RPC_URLS = {
-  [ChainId.MAINNET]: [`https://mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.MAINNET]],
+  [ChainId.MAINNET]: [
+    `https://mainnet.infura.io/v3/${INFURA_KEY}`,
+    QUICKNODE_MAINNET_RPC_URL,
+    ...FALLBACK_URLS[ChainId.MAINNET],
+  ],
   [ChainId.GOERLI]: [`https://goerli.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.GOERLI]],
   [ChainId.SEPOLIA]: [`https://sepolia.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.SEPOLIA]],
   [ChainId.OPTIMISM]: [`https://optimism-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.OPTIMISM]],
@@ -145,7 +146,6 @@ export const RPC_URLS = {
     `https://arbitrum-goerli.infura.io/v3/${INFURA_KEY}`,
     ...FALLBACK_URLS[ChainId.ARBITRUM_GOERLI],
   ],
-  [ChainId.BASE_GOERLI]: ['https://base-goerli.public.blastapi.io', ...FALLBACK_URLS[ChainId.BASE_GOERLI]],
   [ChainId.POLYGON]: [`https://polygon-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.POLYGON]],
   [ChainId.POLYGON_MUMBAI]: [
     `https://polygon-mumbai.infura.io/v3/${INFURA_KEY}`,
@@ -153,8 +153,7 @@ export const RPC_URLS = {
   ],
   [ChainId.CELO]: FALLBACK_URLS[ChainId.CELO],
   [ChainId.CELO_ALFAJORES]: FALLBACK_URLS[ChainId.CELO_ALFAJORES],
-  [ChainId.BNB]: [QUICKNODE_RPC_URL, ...FALLBACK_URLS[ChainId.BNB]],
+  [ChainId.BNB]: [QUICKNODE_BNB_RPC_URL, ...FALLBACK_URLS[ChainId.BNB]],
   [ChainId.AVALANCHE]: [`https://avalanche-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.AVALANCHE]],
-  [ChainId.HARMONY]: ['https://api.harmony.one', ...FALLBACK_URLS[ChainId.HARMONY]],
-
+  [ChainId.BASE]: [`https://base-mainnet.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[ChainId.BASE]],
 }

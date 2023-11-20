@@ -17,9 +17,7 @@ function initiateSwap() {
 describe('Permit2', () => {
   function setupInputs(inputToken: Token, outputToken: Token) {
     // Sets up a swap between inputToken and outputToken.
-    cy.visit(`/swap/?inputCurrency=${inputToken.address}&outputCurrency=${outputToken.address}`, {
-      ethereum: 'hardhat',
-    })
+    cy.visit(`/swap/?inputCurrency=${inputToken.address}&outputCurrency=${outputToken.address}`)
     cy.get('#swap-currency-input .token-amount-input').type('0.01')
   }
 
@@ -28,21 +26,32 @@ describe('Permit2', () => {
     // check token approval
     cy.hardhat()
       .then(({ approval, wallet }) => approval.getTokenAllowanceForPermit2({ owner: wallet, token: inputToken }))
-      .should('deep.equal', MaxUint256)
+      .then((allowance) => {
+        Cypress.log({ name: `Token allowance: ${allowance.toString()}` })
+        cy.wrap(allowance).should('deep.equal', MaxUint256)
+      })
   }
 
   /** Asserts the universal router has a max permit2 approval for spend of the input token on-chain. */
   function expectPermit2AllowanceForUniversalRouterToBeMax(inputToken: Token) {
     cy.hardhat()
-      .then((hardhat) => hardhat.approval.getPermit2Allowance({ owner: hardhat.wallet, token: inputToken }))
+      .then(({ approval, wallet }) => approval.getPermit2Allowance({ owner: wallet, token: inputToken }))
       .then((allowance) => {
-        cy.wrap(MaxUint160.eq(allowance.amount)).should('eq', true)
+        Cypress.log({ name: `Permit2 allowance: ${allowance.amount.toString()}` })
+        cy.wrap(allowance.amount).should('deep.equal', MaxUint160)
         // Asserts that the on-chain expiration is in 30 days, within a tolerance of 40 seconds.
         const THIRTY_DAYS_SECONDS = 2_592_000
         const expected = Math.floor(Date.now() / 1000 + THIRTY_DAYS_SECONDS)
         cy.wrap(allowance.expiration).should('be.closeTo', expected, 40)
       })
   }
+
+  beforeEach(() =>
+    cy.hardhat().then(async (hardhat) => {
+      await hardhat.fund(hardhat.wallet, CurrencyAmount.fromRawAmount(DAI, 1e18))
+      await hardhat.mine()
+    })
+  )
 
   describe('approval process (with intermediate screens)', () => {
     // Turn off automine so that intermediate screens are available to assert on.
@@ -66,8 +75,9 @@ describe('Permit2', () => {
       cy.contains('Allow DAI to be used for swapping')
       cy.wait('@eth_signTypedData_v4')
       cy.wait('@eth_sendRawTransaction')
+      cy.contains('Swap submitted')
       cy.hardhat().then((hardhat) => hardhat.mine())
-      cy.contains('Success')
+      cy.contains('Swap success!')
       cy.get(getTestSelector('popups')).contains('Swapped')
       expectPermit2AllowanceForUniversalRouterToBeMax(DAI)
     })
@@ -90,7 +100,7 @@ describe('Permit2', () => {
       // Verify transaction
       cy.wait('@eth_sendRawTransaction')
       cy.hardhat().then((hardhat) => hardhat.mine())
-      cy.contains('Success')
+      cy.contains('Swap success!')
       cy.get(getTestSelector('popups')).contains('Swapped')
     })
 
@@ -133,7 +143,27 @@ describe('Permit2', () => {
       // Verify transaction
       cy.wait('@eth_sendRawTransaction')
       cy.hardhat().then((hardhat) => hardhat.mine())
-      cy.contains('Success')
+      cy.contains('Swap success!')
+      cy.get(getTestSelector('popups')).contains('Swapped')
+    })
+
+    it('swaps USDT with existing permit, and existing and sufficient token approval', () => {
+      cy.hardhat().then(async (hardhat) => {
+        await hardhat.fund(hardhat.wallet, CurrencyAmount.fromRawAmount(USDT, 2e6))
+        await hardhat.mine()
+        await hardhat.approval.setTokenAllowanceForPermit2({ owner: hardhat.wallet, token: USDT }, 1e6)
+        await hardhat.mine()
+        await hardhat.approval.setPermit2Allowance({ owner: hardhat.wallet, token: USDT })
+        await hardhat.mine()
+      })
+      setupInputs(USDT, USDC_MAINNET)
+      cy.get('#swap-currency-input .token-amount-input').clear().type('1')
+      initiateSwap()
+
+      // Verify transaction
+      cy.wait('@eth_sendRawTransaction')
+      cy.hardhat().then((hardhat) => hardhat.mine())
+      cy.contains('Swap success!')
       cy.get(getTestSelector('popups')).contains('Swapped')
     })
   })
@@ -149,7 +179,7 @@ describe('Permit2', () => {
     initiateSwap()
 
     // Verify transaction
-    cy.contains('Success')
+    cy.contains('Swap success!')
     cy.get(getTestSelector('popups')).contains('Swapped')
   })
 
@@ -188,7 +218,7 @@ describe('Permit2', () => {
       cy.contains('Confirm swap').click()
 
       // Verify permit2 approval
-      cy.contains('Success')
+      cy.contains('Swap success!')
       cy.get(getTestSelector('popups')).contains('Swapped')
       expectPermit2AllowanceForUniversalRouterToBeMax(DAI)
     })
@@ -222,7 +252,7 @@ describe('Permit2', () => {
 
     // Verify permit2 approval
     cy.wait('@eth_signTypedData_v4')
-    cy.contains('Success')
+    cy.contains('Swap success!')
     cy.get(getTestSelector('popups')).contains('Swapped')
     expectPermit2AllowanceForUniversalRouterToBeMax(DAI)
   })
@@ -240,7 +270,7 @@ describe('Permit2', () => {
 
     // Verify permit2 approval
     cy.wait('@eth_signTypedData_v4')
-    cy.contains('Success')
+    cy.contains('Swap success!')
     cy.get(getTestSelector('popups')).contains('Swapped')
     expectPermit2AllowanceForUniversalRouterToBeMax(DAI)
   })

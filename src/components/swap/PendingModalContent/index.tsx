@@ -1,23 +1,31 @@
 import { t, Trans } from '@lingui/macro'
-import { Currency } from '@thinkincoin-libs/sdk-core'
-import { ChainId } from '@thinkincoin-libs/sdk-core'
+import { ChainId, Currency } from '@uniswap/sdk-core'
 import { useWeb3React } from '@web3-react/core'
+import { OrderContent } from 'components/AccountDrawer/MiniPortfolio/Activity/OffchainActivityModal'
 import { ColumnCenter } from 'components/Column'
 import Column from 'components/Column'
 import Row from 'components/Row'
+import { TransactionStatus } from 'graphql/data/__generated__/types-and-hooks'
+import { SwapResult } from 'hooks/useSwapCallback'
 import { useUnmountingAnimation } from 'hooks/useUnmountingAnimation'
-import { ReactNode, useRef } from 'react'
-import { InterfaceTrade } from 'state/routing/types'
-import { useIsTransactionConfirmed } from 'state/transactions/hooks'
-import styled, { css, keyframes } from 'styled-components/macro'
-import { ExternalLink } from 'theme'
+import { UniswapXOrderStatus } from 'lib/hooks/orders/types'
+import { ReactNode, useMemo, useRef } from 'react'
+import { InterfaceTrade, TradeFillType } from 'state/routing/types'
+import { useOrder } from 'state/signatures/hooks'
+import { UniswapXOrderDetails } from 'state/signatures/types'
+import { useIsTransactionConfirmed, useSwapTransactionStatus } from 'state/transactions/hooks'
+import styled, { css } from 'styled-components'
+import { ExternalLink } from 'theme/components'
 import { ThemedText } from 'theme/components/text'
+import { SignatureExpiredError } from 'utils/errors'
 import { getExplorerLink } from 'utils/getExplorerLink'
 import { ExplorerDataType } from 'utils/getExplorerLink'
 
 import { ConfirmModalState } from '../ConfirmSwapModal'
+import { slideInAnimation, slideOutAnimation } from './animations'
 import {
   AnimatedEntranceConfirmationIcon,
+  AnimatedEntranceSubmittedIcon,
   AnimationType,
   CurrencyLoader,
   LoadingIndicatorOverlay,
@@ -25,6 +33,7 @@ import {
   PaperIcon,
 } from './Logos'
 import { TradeSummary } from './TradeSummary'
+import { TransitionText } from './TransitionText'
 
 export const PendingModalContainer = styled(ColumnCenter)`
   margin: 48px 0 8px;
@@ -40,24 +49,9 @@ const StepCircle = styled.div<{ active: boolean }>`
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  background-color: ${({ theme, active }) => (active ? theme.accentAction : theme.textTertiary)};
-  outline: 3px solid ${({ theme, active }) => (active ? theme.accentActionSoft : theme.accentTextLightTertiary)};
+  background-color: ${({ theme, active }) => (active ? theme.accent1 : theme.neutral3)};
+  outline: 3px solid ${({ theme, active }) => (active ? theme.accent2 : theme.deprecated_accentTextLightPrimary)};
   transition: background-color ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.inOut}`};
-`
-
-const slideIn = keyframes`
-  from { opacity: 0; transform: translateX(40px) }
-  to { opacity: 1; transform: translateX(0px) }
-`
-const slideInAnimation = css`
-  animation: ${slideIn} ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.inOut}`};
-`
-const slideOut = keyframes`
-  from { opacity: 1; transform: translateX(0px) }
-  to { opacity: 0; transform: translateX(-40px) }
-`
-const slideOutAnimation = css`
-  animation: ${slideOut} ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.inOut}`};
 `
 
 const AnimationWrapper = styled.div`
@@ -71,7 +65,10 @@ const AnimationWrapper = styled.div`
 const StepTitleAnimationContainer = styled(Column)<{ disableEntranceAnimation?: boolean }>`
   position: absolute;
   width: 100%;
+  height: 100%;
   align-items: center;
+  display: flex;
+  flex-direction: column;
   transition: display ${({ theme }) => `${theme.transition.duration.medium} ${theme.transition.timing.inOut}`};
   ${({ disableEntranceAnimation }) =>
     !disableEntranceAnimation &&
@@ -90,13 +87,14 @@ export type PendingConfirmModalState = Extract<
   | ConfirmModalState.APPROVING_TOKEN
   | ConfirmModalState.PERMITTING
   | ConfirmModalState.PENDING_CONFIRMATION
-  | ConfirmModalState.RESETTING_USDT
+  | ConfirmModalState.WRAPPING
+  | ConfirmModalState.RESETTING_TOKEN_ALLOWANCE
 >
 
 interface PendingModalStep {
   title: ReactNode
   subtitle?: ReactNode
-  label?: ReactNode
+  bottomLabel?: ReactNode
   logo?: ReactNode
   button?: ReactNode
 }
@@ -105,105 +103,211 @@ interface PendingModalContentProps {
   steps: PendingConfirmModalState[]
   currentStep: PendingConfirmModalState
   trade?: InterfaceTrade
-  swapTxHash?: string
+  swapResult?: SwapResult
+  wrapTxHash?: string
   hideStepIndicators?: boolean
   tokenApprovalPending?: boolean
   revocationPending?: boolean
+  swapError?: Error | string
+  onRetryUniswapXSignature?: () => void
 }
 
 interface ContentArgs {
-  step: PendingConfirmModalState
   approvalCurrency?: Currency
   trade?: InterfaceTrade
   swapConfirmed: boolean
   swapPending: boolean
+  wrapPending: boolean
   tokenApprovalPending: boolean
   revocationPending: boolean
-  swapTxHash?: string
+  swapResult?: SwapResult
   chainId?: number
+  order?: UniswapXOrderDetails
+  swapError?: Error | string
+  onRetryUniswapXSignature?: () => void
 }
 
-function getContent(args: ContentArgs): PendingModalStep {
+function getPendingConfirmationContent({
+  swapConfirmed,
+  swapPending,
+  trade,
+  chainId,
+  swapResult,
+  swapError,
+  onRetryUniswapXSignature,
+}: Pick<
+  ContentArgs,
+  'swapConfirmed' | 'swapPending' | 'trade' | 'chainId' | 'swapResult' | 'swapError' | 'onRetryUniswapXSignature'
+>): PendingModalStep {
+  const title = swapPending ? t`Swap submitted` : swapConfirmed ? t`Swap success!` : t`Confirm Swap`
+  const tradeSummary = trade ? <TradeSummary trade={trade} /> : null
+  if (swapPending && trade?.fillType === TradeFillType.UniswapX) {
+    return {
+      title,
+      subtitle: tradeSummary,
+      bottomLabel: (
+        <ExternalLink href="https://support.uniswap.org/hc/en-us/articles/17515415311501" color="neutral2">
+          <Trans>Learn more about swapping with UniswapX</Trans>
+        </ExternalLink>
+      ),
+    }
+  } else if ((swapPending || swapConfirmed) && chainId && swapResult?.type === TradeFillType.Classic) {
+    const explorerLink = (
+      <ExternalLink
+        href={getExplorerLink(chainId, swapResult.response.hash, ExplorerDataType.TRANSACTION)}
+        color="neutral2"
+      >
+        <Trans>View on Explorer</Trans>
+      </ExternalLink>
+    )
+    if (swapPending) {
+      // On Mainnet, we show a "submitted" state while the transaction is pending confirmation.
+      return {
+        title,
+        subtitle: chainId === ChainId.MAINNET ? explorerLink : tradeSummary,
+        bottomLabel: chainId === ChainId.MAINNET ? t`Transaction pending...` : explorerLink,
+      }
+    } else {
+      return {
+        title,
+        subtitle: explorerLink,
+        bottomLabel: null,
+      }
+    }
+  } else if (swapError instanceof SignatureExpiredError) {
+    return {
+      title: (
+        <TransitionText
+          key={swapError.id}
+          initialText={<Trans>Time expired</Trans>}
+          transitionText={<Trans>Retry confirmation</Trans>}
+          onTransition={onRetryUniswapXSignature}
+        />
+      ),
+      subtitle: tradeSummary,
+      bottomLabel: t`Proceed in your wallet`,
+    }
+  } else {
+    return {
+      title,
+      subtitle: tradeSummary,
+      bottomLabel: t`Proceed in your wallet`,
+    }
+  }
+}
+
+function useStepContents(args: ContentArgs): Record<PendingConfirmModalState, PendingModalStep> {
   const {
-    step,
+    wrapPending,
     approvalCurrency,
     swapConfirmed,
     swapPending,
     tokenApprovalPending,
     revocationPending,
     trade,
-    swapTxHash,
+    swapResult,
     chainId,
+    swapError,
+    onRetryUniswapXSignature,
   } = args
-  switch (step) {
-    case ConfirmModalState.RESETTING_USDT:
-      return {
-        title: t`Reset USDT`,
-        subtitle: t`USDT requires resetting approval when spending limits are too low.`,
-        label: revocationPending ? t`Pending...` : t`Proceed in your wallet`,
-      }
-    case ConfirmModalState.APPROVING_TOKEN:
-      return {
+
+  return useMemo(
+    () => ({
+      [ConfirmModalState.WRAPPING]: {
+        title: t`Wrap ETH`,
+        subtitle: (
+          <ExternalLink href="https://support.uniswap.org/hc/en-us/articles/16015852009997">
+            <Trans>Why is this required?</Trans>
+          </ExternalLink>
+        ),
+        bottomLabel: wrapPending ? t`Pending...` : t`Proceed in your wallet`,
+      },
+      [ConfirmModalState.RESETTING_TOKEN_ALLOWANCE]: {
+        title: t`Reset ${approvalCurrency?.symbol}`,
+        subtitle: t`${approvalCurrency?.symbol} requires resetting approval when spending limits are too low.`,
+        bottomLabel: revocationPending ? t`Pending...` : t`Proceed in your wallet`,
+      },
+      [ConfirmModalState.APPROVING_TOKEN]: {
         title: t`Enable spending ${approvalCurrency?.symbol ?? 'this token'} on Uniswap`,
         subtitle: (
           <ExternalLink href="https://support.uniswap.org/hc/en-us/articles/8120520483085">
             <Trans>Why is this required?</Trans>
           </ExternalLink>
         ),
-        label: tokenApprovalPending ? t`Pending...` : t`Proceed in your wallet`,
-      }
-    case ConfirmModalState.PERMITTING:
-      return {
+        bottomLabel: tokenApprovalPending ? t`Pending...` : t`Proceed in your wallet`,
+      },
+      [ConfirmModalState.PERMITTING]: {
         title: t`Allow ${approvalCurrency?.symbol ?? 'this token'} to be used for swapping`,
         subtitle: (
           <ExternalLink href="https://support.uniswap.org/hc/en-us/articles/8120520483085">
             <Trans>Why is this required?</Trans>
           </ExternalLink>
         ),
-        label: t`Proceed in your wallet`,
-      }
-    case ConfirmModalState.PENDING_CONFIRMATION:
-      return {
-        title: swapPending ? t`Transaction submitted` : swapConfirmed ? t`Success` : t`Confirm Swap`,
-        subtitle: trade ? <TradeSummary trade={trade} /> : null,
-        label:
-          swapConfirmed && swapTxHash && chainId ? (
-            <ExternalLink
-              href={getExplorerLink(chainId, swapTxHash, ExplorerDataType.TRANSACTION)}
-              color="textSecondary"
-            >
-              <Trans>View on Explorer</Trans>
-            </ExternalLink>
-          ) : !swapPending ? (
-            t`Proceed in your wallet`
-          ) : null,
-      }
-  }
+        bottomLabel: t`Proceed in your wallet`,
+      },
+      [ConfirmModalState.PENDING_CONFIRMATION]: getPendingConfirmationContent({
+        chainId,
+        swapConfirmed,
+        swapPending,
+        swapResult,
+        trade,
+        swapError,
+        onRetryUniswapXSignature,
+      }),
+    }),
+    [
+      approvalCurrency?.symbol,
+      chainId,
+      revocationPending,
+      swapConfirmed,
+      swapPending,
+      swapResult,
+      tokenApprovalPending,
+      trade,
+      wrapPending,
+      swapError,
+      onRetryUniswapXSignature,
+    ]
+  )
 }
 
 export function PendingModalContent({
   steps,
   currentStep,
   trade,
-  swapTxHash,
+  swapResult,
+  wrapTxHash,
   hideStepIndicators,
   tokenApprovalPending = false,
   revocationPending = false,
+  swapError,
+  onRetryUniswapXSignature,
 }: PendingModalContentProps) {
   const { chainId } = useWeb3React()
-  const swapConfirmed = useIsTransactionConfirmed(swapTxHash)
-  const swapPending = swapTxHash !== undefined && !swapConfirmed
-  const { label, button } = getContent({
-    step: currentStep,
+
+  const swapStatus = useSwapTransactionStatus(swapResult)
+  const order = useOrder(swapResult?.type === TradeFillType.UniswapX ? swapResult.response.orderHash : '')
+
+  const swapConfirmed = swapStatus === TransactionStatus.Confirmed || order?.status === UniswapXOrderStatus.FILLED
+  const wrapConfirmed = useIsTransactionConfirmed(wrapTxHash)
+
+  const swapPending = swapResult !== undefined && !swapConfirmed
+  const wrapPending = wrapTxHash != undefined && !wrapConfirmed
+
+  const stepContents = useStepContents({
     approvalCurrency: trade?.inputAmount.currency,
     swapConfirmed,
     swapPending,
+    wrapPending,
     tokenApprovalPending,
     revocationPending,
-    swapTxHash,
+    swapResult,
     trade,
     chainId,
+    swapError,
+    onRetryUniswapXSignature,
   })
+
   const currentStepContainerRef = useRef<HTMLDivElement>(null)
   useUnmountingAnimation(currentStepContainerRef, () => AnimationType.EXITING)
 
@@ -211,8 +315,16 @@ export function PendingModalContent({
     return null
   }
 
-  // On mainnet, we show the success icon once the tx is sent, since it takes longer to confirm than on L2s.
-  const showSuccess = swapConfirmed || (swapPending && chainId === ChainId.MAINNET)
+  // Return finalized-order-specifc content if available
+  if (order && order.status !== UniswapXOrderStatus.OPEN) {
+    return <OrderContent order={{ status: order.status, orderHash: order.orderHash, details: order }} />
+  }
+
+  // On mainnet, we show a different icon when the transaction is submitted but pending confirmation.
+  const showSubmitted = swapPending && !swapConfirmed && chainId === ChainId.MAINNET
+  const showSuccess = swapConfirmed || (chainId !== ChainId.MAINNET && swapPending)
+
+  const transactionPending = revocationPending || tokenApprovalPending || wrapPending || swapPending
 
   return (
     <PendingModalContainer gap="lg">
@@ -230,26 +342,18 @@ export function PendingModalContent({
         )}
         {/* Shown only during the final step under "success" conditions, and scales in. */}
         {currentStep === ConfirmModalState.PENDING_CONFIRMATION && showSuccess && <AnimatedEntranceConfirmationIcon />}
-        {/* Scales in for the USDT revoke allowance step if the revoke is pending onchain confirmation. */}
-        {/* Scales in for the setup approval step if the approval is pending onchain confirmation. */}
-        {/* Scales in for the final step if the swap is pending user signature or onchain confirmation. */}
-        {((currentStep === ConfirmModalState.PENDING_CONFIRMATION && !showSuccess) ||
-          tokenApprovalPending ||
-          revocationPending) && <LoadingIndicatorOverlay />}
+        {/* Shown only during the final step on mainnet, when the transaction is sent but pending confirmation. */}
+        {currentStep === ConfirmModalState.PENDING_CONFIRMATION && showSubmitted && <AnimatedEntranceSubmittedIcon />}
+        {/* Scales in for any step that waits for an onchain transaction, while the transaction is pending. */}
+        {/* On the last step, appears while waiting for the transaction to be signed too. */}
+        {((currentStep !== ConfirmModalState.PENDING_CONFIRMATION && transactionPending) ||
+          (currentStep === ConfirmModalState.PENDING_CONFIRMATION && !showSuccess && !showSubmitted)) && (
+          <LoadingIndicatorOverlay />
+        )}
       </LogoContainer>
-      <HeaderContainer gap="md" $disabled={revocationPending || tokenApprovalPending || (swapPending && !showSuccess)}>
+      <HeaderContainer gap="md" $disabled={transactionPending}>
         <AnimationWrapper>
           {steps.map((step) => {
-            const { title, subtitle } = getContent({
-              step,
-              approvalCurrency: trade?.inputAmount.currency,
-              swapConfirmed,
-              swapPending,
-              tokenApprovalPending,
-              revocationPending,
-              swapTxHash,
-              trade,
-            })
             // We only render one step at a time, but looping through the array allows us to keep
             // the exiting step in the DOM during its animation.
             return (
@@ -260,20 +364,20 @@ export function PendingModalContent({
                   key={step}
                   ref={step === currentStep ? currentStepContainerRef : undefined}
                 >
-                  <ThemedText.SubHeaderLarge textAlign="center" data-testid="pending-modal-content-title">
-                    {title}
+                  <ThemedText.SubHeaderLarge width="100%" textAlign="center" data-testid="pending-modal-content-title">
+                    {stepContents[step].title}
                   </ThemedText.SubHeaderLarge>
-                  <ThemedText.LabelSmall textAlign="center">{subtitle}</ThemedText.LabelSmall>
+                  <ThemedText.LabelSmall textAlign="center">{stepContents[step].subtitle}</ThemedText.LabelSmall>
                 </StepTitleAnimationContainer>
               )
             )
           })}
         </AnimationWrapper>
         <Row justify="center" marginTop="32px" minHeight="24px">
-          <ThemedText.Caption color="textSecondary">{label}</ThemedText.Caption>
+          <ThemedText.BodySmall color="neutral2">{stepContents[currentStep].bottomLabel}</ThemedText.BodySmall>
         </Row>
       </HeaderContainer>
-      {button && <Row justify="center">{button}</Row>}
+      {stepContents[currentStep].button && <Row justify="center">{stepContents[currentStep].button}</Row>}
       {!hideStepIndicators && !showSuccess && (
         <Row gap="14px" justify="center">
           {steps.map((_, i) => {

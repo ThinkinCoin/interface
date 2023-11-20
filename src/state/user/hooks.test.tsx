@@ -2,7 +2,7 @@ import { act } from '@testing-library/react'
 import { Percent } from '@thinkincoin-libs/sdk-core'
 import { USDC_MAINNET } from 'constants/tokens'
 import store from 'state'
-import { RouterPreference } from 'state/routing/slice'
+import { RouterPreference } from 'state/routing/types'
 import { renderHook } from 'test-utils/render'
 
 import { deserializeToken, serializeToken, useRouterPreference, useUserSlippageTolerance } from './hooks'
@@ -66,12 +66,12 @@ describe('useUserSlippageTolerance', () => {
 })
 
 describe('useRouterPreference', () => {
-  it('returns `auto` by default', () => {
+  it('returns `x` by default', () => {
     const {
       result: {
         current: [routerPreference],
       },
     } = renderHook(() => useRouterPreference())
-    expect(routerPreference).toBe(RouterPreference.AUTO)
+    expect(routerPreference).toBe(RouterPreference.X)
   })
 })

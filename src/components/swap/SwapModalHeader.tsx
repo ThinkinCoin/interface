@@ -1,17 +1,14 @@
 import { Trans } from '@lingui/macro'
-import { Percent, TradeType } from '@thinkincoin-libs/sdk-core'
+import { Currency, Percent, TradeType } from '@uniswap/sdk-core'
 import Column, { AutoColumn } from 'components/Column'
 import { useUSDPrice } from 'hooks/useUSDPrice'
 import { InterfaceTrade } from 'state/routing/types'
+import { isPreviewTrade } from 'state/routing/utils'
 import { Field } from 'state/swap/actions'
-import styled from 'styled-components/macro'
-import { Divider, ThemedText } from 'theme'
+import styled from 'styled-components'
+import { ThemedText } from 'theme/components'
 
 import { SwapModalHeaderAmount } from './SwapModalHeaderAmount'
-
-const Rule = styled(Divider)`
-  margin: 16px 2px 24px 2px;
-`
 
 const HeaderContainer = styled(AutoColumn)`
   margin-top: 16px;
@@ -19,9 +16,11 @@ const HeaderContainer = styled(AutoColumn)`
 
 export default function SwapModalHeader({
   trade,
+  inputCurrency,
   allowedSlippage,
 }: {
   trade: InterfaceTrade
+  inputCurrency?: Currency
   allowedSlippage: Percent
 }) {
   const fiatValueInput = useUSDPrice(trade.inputAmount)
@@ -34,13 +33,17 @@ export default function SwapModalHeader({
           field={Field.INPUT}
           label={<Trans>You pay</Trans>}
           amount={trade.inputAmount}
+          currency={inputCurrency ?? trade.inputAmount.currency}
           usdAmount={fiatValueInput.data}
+          isLoading={isPreviewTrade(trade) && trade.tradeType === TradeType.EXACT_OUTPUT}
         />
         <SwapModalHeaderAmount
           field={Field.OUTPUT}
           label={<Trans>You receive</Trans>}
           amount={trade.outputAmount}
+          currency={trade.outputAmount.currency}
           usdAmount={fiatValueOutput.data}
+          isLoading={isPreviewTrade(trade) && trade.tradeType === TradeType.EXACT_INPUT}
           tooltipText={
             trade.tradeType === TradeType.EXACT_INPUT ? (
               <ThemedText.Caption>
@@ -66,7 +69,6 @@ export default function SwapModalHeader({
           }
         />
       </Column>
-      <Rule />
     </HeaderContainer>
   )
 }

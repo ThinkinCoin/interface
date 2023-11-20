@@ -1,4 +1,5 @@
-import { ChainId } from '@thinkincoin-libs/sdk-core'
+import { SwapEventName } from '@uniswap/analytics-events'
+import { ChainId } from '@uniswap/sdk-core'
 
 import { UNI, USDC_MAINNET } from '../../../src/constants/tokens'
 import { getBalance, getTestSelector } from '../../utils'
@@ -52,26 +53,33 @@ describe('Swap', () => {
     })
 
     it('swaps ETH for USDC', () => {
-      cy.visit('/swap', { ethereum: 'hardhat' })
+      cy.visit('/swap')
       cy.hardhat({ automine: false })
       getBalance(USDC_MAINNET).then((initialBalance) => {
         // Select USDC
         cy.get('#swap-currency-output .open-currency-select-button').click()
         cy.get(getTestSelector('token-search-input')).type(USDC_MAINNET.address)
-        cy.contains('USDC').click()
+        cy.get(getTestSelector('common-base-USDC')).click()
 
         // Enter amount to swap
         cy.get('#swap-currency-output .token-amount-input').type('1').should('have.value', '1')
         cy.get('#swap-currency-input .token-amount-input').should('not.have.value', '')
+
+        // Verify logging
+        cy.waitForAmplitudeEvent(SwapEventName.SWAP_QUOTE_RECEIVED).then((event: any) => {
+          cy.wrap(event.event_properties).should('have.property', 'quote_latency_milliseconds')
+          cy.wrap(event.event_properties.quote_latency_milliseconds).should('be.a', 'number')
+          cy.wrap(event.event_properties.quote_latency_milliseconds).should('be.gte', 0)
+        })
 
         // Submit transaction
         cy.get('#swap-button').click()
         cy.contains('Review swap')
         cy.contains('Confirm swap').click()
         cy.wait('@eth_estimateGas').wait('@eth_sendRawTransaction').wait('@eth_getTransactionReceipt')
-        cy.contains('Transaction submitted')
+        cy.contains('Swap submitted')
         cy.get(getTestSelector('confirmation-close-icon')).click()
-        cy.contains('Transaction submitted').should('not.exist')
+        cy.contains('Swap submitted').should('not.exist')
         cy.get(getTestSelector('web3-status-connected')).should('contain', '1 Pending')
 
         // Mine transaction
