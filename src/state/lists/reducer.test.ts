@@ -317,7 +317,7 @@ describe('list reducer', () => {
       beforeEach(() => {
         store = createStore(reducer, {
           byUrl: {
-            'https://unpkg.com/@thinkincoin-libs/default-token-list@latest/uniswap-default.tokenlist.json': {
+            'https://unpkg.com/@thinkincoin-libs/default-token-list@latest/thinkincoin-default.tokenlist.json': {
               error: null,
               current: STUB_TOKEN_LIST,
               loadingRequestId: null,
@@ -336,7 +336,7 @@ describe('list reducer', () => {
 
       it('clears the current lists', () => {
         expect(
-          store.getState().byUrl['https://unpkg.com/@thinkincoin-libs/default-token-list@latest/uniswap-default.tokenlist.json']
+          store.getState().byUrl['https://unpkg.com/@thinkincoin-libs/default-token-list@latest/thinkincoin-default.tokenlist.json']
         ).toBeUndefined()
         expect(store.getState().byUrl['https://unpkg.com/@thinkincoin-libs/default-token-list@latest']).toBeUndefined()
       })
@@ -363,7 +363,7 @@ describe('list reducer', () => {
       beforeEach(() => {
         store = createStore(reducer, {
           byUrl: {
-            'https://unpkg.com/@thinkincoin-libs/default-token-list@latest/uniswap-default.tokenlist.json': {
+            'https://unpkg.com/@thinkincoin-libs/default-token-list@latest/thinkincoin-default.tokenlist.json': {
               error: null,
               current: STUB_TOKEN_LIST,
               loadingRequestId: null,
@@ -383,7 +383,7 @@ describe('list reducer', () => {
 
       it('does not remove lists not in last initialized list of lists', () => {
         expect(
-          store.getState().byUrl['https://unpkg.com/@thinkincoin-libs/default-token-list@latest/uniswap-default.tokenlist.json']
+          store.getState().byUrl['https://unpkg.com/@thinkincoin-libs/default-token-list@latest/thinkincoin-default.tokenlist.json']
         ).toEqual({
           error: null,
           current: STUB_TOKEN_LIST,
@@ -400,7 +400,7 @@ describe('list reducer', () => {
         Object.entries(byUrl)
           // We don't expect the Uniswap default list to be prepopulated
           .filter(
-            ([url]) => url !== 'https://unpkg.com/@thinkincoin-libs/default-token-list@latest/uniswap-default.tokenlist.json'
+            ([url]) => url !== 'https://unpkg.com/@thinkincoin-libs/default-token-list@latest/thinkincoin-default.tokenlist.json'
           )
           .forEach(([, state]) => {
             expect(state).toEqual({

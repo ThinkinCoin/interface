@@ -72,15 +72,15 @@ export const TESTNET_CHAIN_IDS = [
  * All the chain IDs that are running the Ethereum protocol.
  */
 export const L1_CHAIN_IDS = [
-  ChainId.MAINNET,
-  ChainId.GOERLI,
-  ChainId.SEPOLIA,
-  ChainId.POLYGON,
-  ChainId.POLYGON_MUMBAI,
-  ChainId.CELO,
-  ChainId.CELO_ALFAJORES,
-  ChainId.BNB,
-  ChainId.AVALANCHE,
+//  ChainId.MAINNET,
+//  ChainId.GOERLI,
+//  ChainId.SEPOLIA,
+//  ChainId.POLYGON,
+//  ChainId.POLYGON_MUMBAI,
+//  ChainId.CELO,
+//  ChainId.CELO_ALFAJORES,
+//  ChainId.BNB,
+//  ChainId.AVALANCHE,
   ChainId.HARMONY,
 ] as const
 
@@ -91,9 +91,9 @@ export type SupportedL1ChainId = (typeof L1_CHAIN_IDS)[number]
  * The expectation is that all of these networks have immediate transaction confirmation.
  */
 export const L2_CHAIN_IDS = [
-  ChainId.ARBITRUM_ONE,
+//  ChainId.ARBITRUM_ONE,
   ChainId.ARBITRUM_GOERLI,
-  ChainId.OPTIMISM,
+//  ChainId.OPTIMISM,
   ChainId.OPTIMISM_GOERLI,
 ] as const
 
